@@ -67,14 +67,14 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      font-size: 19px;
+      font-size: 18px;
       color: #fff;
       flex-shrink: 0;
     }
     .icon-ribbon { background: var(--accent-ribbon); }
     .icon-elephant { background: var(--accent-elephant); }
-    .brand-text { font-size: 1.12rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
-    .system-title { font-size: 1.2rem; font-weight: 900; color: var(--primary-hover); letter-spacing: 0.5px; }
+    .brand-text { font-size: 1.05rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
+    .system-title { font-size: 1.15rem; font-weight: 900; color: var(--primary-hover); letter-spacing: 0.5px; }
 
     /* 主架構 */
     .app-layout {
@@ -149,10 +149,195 @@
       border: 1px solid var(--border);
       padding: 28px;
       box-shadow: 0 4px 16px rgba(142, 59, 104, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .key-box {
       background: linear-gradient(135deg, #FFF6F9 0%, #F9EDF3 100%);
       border: 1.5px dashed var(--primary);
       border-radius: 10px;
-      padding:
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .key-box-title {
+      font-weight: 700;
+      color: var(--primary-hover);
+      font-size: 0.95rem;
+    }
+    .key-box-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 內容區塊控制 */
+    .module-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-hover);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-light);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    label {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .action-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: var(--primary-hover);
+    }
+    .result-area {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 100px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 860px) {
+      .app-layout {
+        flex-direction: column;
+        padding: 16px;
+      }
+      .sidebar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Header -->
+  <header>
+    <div class="brand-wrap">
+      <div class="logo-badge">
+        <span class="icon-ribbon">🎀</span>
+        <span class="icon-elephant">🐘</span>
+        <span class="brand-text">彭婉如文教基金會・台灣公共托育協會</span>
+      </div>
+    </div>
+    <div class="system-title">幼兒園教保專業 AI 輔助系統</div>
+  </header>
+
+  <!-- 主版面 -->
+  <div class="app-layout">
+    
+    <!-- 左側功能選單 -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">教保專業支援模組</div>
+        <div class="menu-group">
+          <button class="menu-item active" onclick="switchTab(this, '觀察紀錄與評量建議', '請輸入幼兒的具體行為觀察紀錄（如活動反應、同儕互動、自理表現）：')">
+            📝 觀察紀錄與評量建議
+          </button>
+          <button class="menu-item" onclick="switchTab(this, '主題活動與教案發想', '請輸入欲設計的主題領域、目標年齡班別（如大班/中班）與預期學習指標：')">
+            🎨 主題活動與教案發想
+          </button>
+          <button class="menu-item" onclick="switchTab(this, '親師聯絡簿與溝通撰寫', '請輸入欲與家長說明的事件重點、幼兒在園表現與需要家長配合事項：')">
+            💌 親師聯絡簿溝通生成
+          </button>
+          <button class="menu-item" onclick="switchTab(this, '正向教養與行為輔導引導', '請描述幼兒的情緒或行為困擾情境，系統將提供符合幼兒發展之輔導策略：')">
+            🌱 正向輔導策略引導
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右側工作主面板 -->
+    <main class="main-panel">
+      <!-- 系統公告 / 說明框 -->
+      <div class="key-box">
+        <div class="key-box-title">💡 教保專業使用提醒</div>
+        <div class="key-box-desc">
+          本系統協助教保服務人員進行文案起草與教學發想。為維護幼兒個人隱私，輸入觀察紀錄或親師通訊時，請<strong>避免包含幼兒全名、身分證字號或特定識別資訊</strong>。
+        </div>
+      </div>
+
+      <!-- 操作表單區域 -->
+      <h2 id="current-title" class="module-title">觀察紀錄與評量建議</h2>
+
+      <div class="form-group">
+        <label id="input-label" for="user-input">請輸入幼兒的具體行為觀察紀錄（如活動反應、同儕互動、自理表現）：</label>
+        <textarea id="user-input" placeholder="例如：今日美勞活動時，小明在剪紙遇到困難未向老師求助，而是將色紙揉成一團丟在地上..."></textarea>
+      </div>
+
+      <button class="action-btn" onclick="generateAnalysis()">開始生成輔導建議</button>
+
+      <div class="form-group">
+        <label>AI 生成專業建議：</label>
+        <div id="output-box" class="result-area">請於上方輸入內容並點擊「開始生成」，結果將顯示於此處。</div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    function switchTab(btn, title, promptText) {
+      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('current-title').innerText = title;
+      document.getElementById('input-label').innerText = promptText;
+      document.getElementById('output-box').innerText = '請於上方輸入內容並點擊「開始生成」，結果將顯示於此處。';
+    }
+
+    function generateAnalysis() {
+      const input = document.getElementById('user-input').value.trim();
+      const output = document.getElementById('output-box');
+
+      if (!input) {
+        alert('請先輸入相關內容！');
+        return;
+      }
+
+      output.innerText = '處理中，請稍候...';
+      
+      // 模擬前端回應示範（若有對接 Apps Script 後端或 API，可在此處調用）
+      setTimeout(() => {
+        output.innerText = `【專業建議已生成】\n針對您輸入的內容：\n「${input}」\n\n1. 幼兒發展分析：此行為反映幼兒在挫折容忍度與求助策略上尚在發展階段。\n2. 教保人員回應引導：建議採同理接納策略，先辨識幼兒情緒（「看到紙破掉了，你覺得很挫折對不對？」），再引導具體解決步驟。\n3. 親師溝通重點：建議向家長客觀陳述現場應對方式，並協同步調引導幼兒用語言表達需求。`;
+      }, 600);
+    }
+  </script>
+</body>
+</html>
