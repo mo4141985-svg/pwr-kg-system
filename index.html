@@ -74,6 +74,8 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
+      position: relative;
+      z-index: 10;
     }
     .sidebar-card {
       background: var(--card-bg);
@@ -96,20 +98,29 @@
       width: 100%;
       padding: 12px 14px;
       margin-bottom: 6px;
-      border: none;
+      border: 1px solid transparent;
       background: transparent;
       color: var(--text);
       font-size: 0.95rem;
       font-weight: 600;
       border-radius: 8px;
-      cursor: pointer;
+      cursor: pointer !important;
       text-align: left;
       transition: all 0.2s ease;
+      user-select: none;
+      position: relative;
+      z-index: 15;
     }
-    .menu-item:hover { background: var(--primary-light); color: var(--primary); }
+    .menu-item:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .menu-item:active {
+      transform: scale(0.98);
+    }
     .menu-item.active {
-      background: var(--primary);
-      color: #FFFFFF;
+      background: var(--primary) !important;
+      color: #FFFFFF !important;
       box-shadow: 0 3px 8px rgba(142, 59, 104, 0.25);
     }
 
@@ -121,6 +132,8 @@
       border: 1px solid var(--border);
       padding: 28px;
       box-shadow: 0 4px 16px rgba(142, 59, 104, 0.05);
+      position: relative;
+      z-index: 1;
     }
 
     .key-box {
@@ -140,8 +153,18 @@
       font-size: 0.92rem;
     }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    /* 分頁顯示機制（強制優先級） */
+    .tab-content {
+      display: none !important;
+    }
+    .tab-content.active {
+      display: block !important;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .module-header { margin-bottom: 20px; border-bottom: 1.5px solid var(--border); padding-bottom: 10px; }
     .module-header h2 { color: var(--primary); font-size: 1.3rem; }
@@ -173,7 +196,7 @@
     .btn:hover { opacity: 0.95; }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
 
-    /* 結果輸出與匯出區塊 */
+    /* 生成成果展示區 */
     .result-container {
       margin-top: 24px;
       padding: 20px;
@@ -189,3 +212,92 @@
       color: var(--primary-hover);
       margin-bottom: 10px;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-export {
+      background: #2B7A78;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-export:hover { background: #205E5C; }
+    .result-content {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: #33222B;
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #F0E3EA;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
+
+    @media (max-width: 768px) {
+      header { padding: 12px 14px; }
+      .brand-wrap { gap: 8px; width: 100%; justify-content: center; }
+      .logo-badge { padding: 6px 12px; }
+      .brand-text { font-size: 0.98rem; }
+      .icon-ribbon, .icon-elephant { width: 28px; height: 28px; font-size: 16px; }
+      .system-title { font-size: 1.05rem; text-align: center; width: 100%; margin-top: 4px; }
+
+      .app-layout { flex-direction: column; padding: 12px; gap: 12px; }
+      .sidebar { width: 100%; }
+      .sidebar-title { display: none; }
+      .sidebar .menu-item {
+        display: inline-flex;
+        width: auto;
+        padding: 9px 12px;
+        font-size: 0.88rem;
+        margin-bottom: 0;
+      }
+      .sidebar-card:first-child {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 6px;
+        padding: 8px;
+      }
+      .sidebar-card:last-child { padding: 10px 14px; }
+      .main-panel { padding: 16px; border-radius: 10px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      .btn { padding: 13px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-wrap">
+      <div class="logo-badge">
+        <span class="icon-ribbon">🎗️</span>
+        <span class="brand-text">彭婉如文教基金會</span>
+      </div>
+      <div class="logo-badge">
+        <span class="icon-elephant">🐘</span>
+        <span class="brand-text">台灣公共托育協會</span>
+      </div>
+    </div>
+    <div class="system-title">幼兒園專業教保管理輔助系統</div>
+  </header>
+
+  <div class="app-layout">
+    
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">功能模組選單</div>
+        <button type="button" class="menu-item active" data-tab="plan" onclick="switchSidebarTab('plan')">
+          <span>🎨 1. 議題與學習區課程發展</span>
+        </button>
+        <button type="button" class="menu-item" data-tab="obs" onclick
