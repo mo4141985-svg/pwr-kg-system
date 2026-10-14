@@ -18,39 +18,21 @@
       --text-muted: #7E6B75;
       --sidebar-width: 270px;
     }
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body { 
-      background-color: var(--bg); 
-      color: var(--text); 
-      min-height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+    body { background-color: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
     
-    /* 頂部 Header */
     header {
       background: #FFFFFF;
       border-bottom: 2px solid var(--border);
-      padding: 16px 24px;
+      padding: 16px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
       box-shadow: 0 2px 10px rgba(142, 59, 104, 0.06);
     }
-    .brand-wrap { 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      flex-wrap: wrap; 
-    }
+    .brand-wrap { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     .logo-badge {
       display: flex;
       align-items: center;
@@ -67,16 +49,15 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      font-size: 18px;
+      font-size: 19px;
       color: #fff;
       flex-shrink: 0;
     }
     .icon-ribbon { background: var(--accent-ribbon); }
     .icon-elephant { background: var(--accent-elephant); }
-    .brand-text { font-size: 1.05rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
-    .system-title { font-size: 1.15rem; font-weight: 900; color: var(--primary-hover); letter-spacing: 0.5px; }
+    .brand-text { font-size: 1.12rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
+    .system-title { font-size: 1.2rem; font-weight: 900; color: var(--primary-hover); letter-spacing: 0.5px; }
 
-    /* 主架構 */
     .app-layout {
       display: flex;
       flex: 1;
@@ -87,7 +68,6 @@
       gap: 22px;
     }
     
-    /* 左側選單 */
     .sidebar {
       width: var(--sidebar-width);
       flex-shrink: 0;
@@ -109,20 +89,14 @@
       margin-bottom: 10px;
       padding-left: 4px;
     }
-    
-    /* 選單按鈕容器 */
-    .menu-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
     .menu-item {
       display: flex;
       align-items: center;
       gap: 10px;
       width: 100%;
-      padding: 13px 14px;
-      border: 1px solid transparent;
+      padding: 12px 14px;
+      margin-bottom: 6px;
+      border: none;
       background: transparent;
       color: var(--text);
       font-size: 0.95rem;
@@ -131,7 +105,6 @@
       cursor: pointer;
       text-align: left;
       transition: all 0.2s ease;
-      touch-action: manipulation;
     }
     .menu-item:hover { background: var(--primary-light); color: var(--primary); }
     .menu-item.active {
@@ -140,7 +113,6 @@
       box-shadow: 0 3px 8px rgba(142, 59, 104, 0.25);
     }
 
-    /* 右側主面板 */
     .main-panel {
       flex: 1;
       min-width: 0;
@@ -149,195 +121,196 @@
       border: 1px solid var(--border);
       padding: 28px;
       box-shadow: 0 4px 16px rgba(142, 59, 104, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
     }
 
     .key-box {
       background: linear-gradient(135deg, #FFF6F9 0%, #F9EDF3 100%);
       border: 1.5px dashed var(--primary);
       border-radius: 10px;
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      padding: 14px 16px;
+      margin-bottom: 22px;
     }
-    .key-box-title {
-      font-weight: 700;
-      color: var(--primary-hover);
-      font-size: 0.95rem;
-    }
-    .key-box-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* 內容區塊控制 */
-    .module-title {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--primary-hover);
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--primary-light);
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    label {
-      font-weight: 700;
-      font-size: 0.92rem;
-      color: var(--text);
-    }
-    textarea, input[type="text"] {
+    .key-box label { color: var(--primary-hover); font-weight: 700; margin-bottom: 6px; display: block; font-size: 0.92rem; }
+    .key-box input {
+      background: #FFFFFF !important;
+      border: 1px solid #DDB8CB !important;
       width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 0.95rem;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    textarea:focus, input[type="text"]:focus {
-      border-color: var(--primary);
-    }
-    textarea {
-      min-height: 140px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-    .action-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      align-self: flex-start;
-      transition: background 0.2s;
-    }
-    .action-btn:hover {
-      background: var(--primary-hover);
-    }
-    .result-area {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      min-height: 100px;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      white-space: pre-wrap;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.92rem;
     }
 
-    @media (max-width: 860px) {
-      .app-layout {
-        flex-direction: column;
-        padding: 16px;
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .module-header { margin-bottom: 20px; border-bottom: 1.5px solid var(--border); padding-bottom: 10px; }
+    .module-header h2 { color: var(--primary); font-size: 1.3rem; }
+    .module-header p { font-size: 0.88rem; color: var(--text-muted); margin-top: 4px; }
+
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; color: #44323D; }
+    input[type="text"], input[type="password"], select, textarea {
+      width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; background: #FFFDFE;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); background: #FFFFFF; }
+    textarea { resize: vertical; min-height: 90px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, #A34879 100%);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(142, 59, 104, 0.2);
+    }
+    .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
+    .loading { display: none; text-align: center; margin-top: 15px; color: var(--primary); font-weight: 700; font-size: 0.92rem; }
+    
+    footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
+
+    @media (max-width: 768px) {
+      header { padding: 12px 14px; }
+      .brand-wrap { gap: 8px; width: 100%; justify-content: center; }
+      .logo-badge { padding: 6px 12px; }
+      .brand-text { font-size: 0.98rem; }
+      .icon-ribbon, .icon-elephant { width: 28px; height: 28px; font-size: 16px; }
+      .system-title { font-size: 1.05rem; text-align: center; width: 100%; margin-top: 4px; }
+
+      .app-layout { flex-direction: column; padding: 12px; gap: 12px; }
+      .sidebar { width: 100%; }
+      .sidebar-title { display: none; }
+      .sidebar .menu-item {
+        display: inline-flex;
+        width: auto;
+        padding: 9px 12px;
+        font-size: 0.88rem;
+        margin-bottom: 0;
       }
-      .sidebar {
-        width: 100%;
+      .sidebar-card:first-child {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 6px;
+        padding: 8px;
       }
+      .sidebar-card:last-child { padding: 10px 14px; }
+      .main-panel { padding: 16px; border-radius: 10px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      .btn { padding: 13px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 頂部 Header -->
   <header>
     <div class="brand-wrap">
       <div class="logo-badge">
-        <span class="icon-ribbon">🎀</span>
+        <span class="icon-ribbon">🎗️</span>
+        <span class="brand-text">彭婉如文教基金會</span>
+      </div>
+      <div class="logo-badge">
         <span class="icon-elephant">🐘</span>
-        <span class="brand-text">彭婉如文教基金會・台灣公共托育協會</span>
+        <span class="brand-text">台灣公共托育協會</span>
       </div>
     </div>
-    <div class="system-title">幼兒園教保專業 AI 輔助系統</div>
+    <div class="system-title">幼兒園專業教保管理輔助系統</div>
   </header>
 
-  <!-- 主版面 -->
   <div class="app-layout">
     
-    <!-- 左側功能選單 -->
     <aside class="sidebar">
       <div class="sidebar-card">
-        <div class="sidebar-title">教保專業支援模組</div>
-        <div class="menu-group">
-          <button class="menu-item active" onclick="switchTab(this, '觀察紀錄與評量建議', '請輸入幼兒的具體行為觀察紀錄（如活動反應、同儕互動、自理表現）：')">
-            📝 觀察紀錄與評量建議
-          </button>
-          <button class="menu-item" onclick="switchTab(this, '主題活動與教案發想', '請輸入欲設計的主題領域、目標年齡班別（如大班/中班）與預期學習指標：')">
-            🎨 主題活動與教案發想
-          </button>
-          <button class="menu-item" onclick="switchTab(this, '親師聯絡簿與溝通撰寫', '請輸入欲與家長說明的事件重點、幼兒在園表現與需要家長配合事項：')">
-            💌 親師聯絡簿溝通生成
-          </button>
-          <button class="menu-item" onclick="switchTab(this, '正向教養與行為輔導引導', '請描述幼兒的情緒或行為困擾情境，系統將提供符合幼兒發展之輔導策略：')">
-            🌱 正向輔導策略引導
-          </button>
+        <div class="sidebar-title">功能模組選單</div>
+        <button class="menu-item active" onclick="switchSidebarTab('plan', this)">
+          <span>🎨 1. 議題與學習區結合課程發展</span>
+        </button>
+        <button class="menu-item" onclick="switchSidebarTab('obs', this)">
+          <span>📝 2. 行為觀察紀錄改寫</span>
+        </button>
+        <button class="menu-item" onclick="switchSidebarTab('comment', this)">
+          <span>🌸 3. 學期期末評語</span>
+        </button>
+        <button class="menu-item" onclick="switchSidebarTab('iep', this)">
+          <span>🌱 4. 特教 IEP 草案</span>
+        </button>
+      </div>
+
+      <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
+        <strong style="color: var(--primary);">💡 操作指引：</strong><br>
+        <div id="dynamic-guide">
+          輸入學期主題與班級，系統自動推演出涵蓋第 1 個月開學準備、第 2-5 個月日常議題探究延伸學習區、第 6 個月教學結束回顧展共六個月之完整課程脈絡 Word 檔。
         </div>
       </div>
     </aside>
 
-    <!-- 右側工作主面板 -->
     <main class="main-panel">
-      <!-- 系統公告 / 說明框 -->
-      <div class="key-box">
-        <div class="key-box-title">💡 教保專業使用提醒</div>
-        <div class="key-box-desc">
-          本系統協助教保服務人員進行文案起草與教學發想。為維護幼兒個人隱私，輸入觀察紀錄或親師通訊時，請<strong>避免包含幼兒全名、身分證字號或特定識別資訊</strong>。
-        </div>
-      </div>
-
-      <!-- 操作表單區域 -->
-      <h2 id="current-title" class="module-title">觀察紀錄與評量建議</h2>
-
-      <div class="form-group">
-        <label id="input-label" for="user-input">請輸入幼兒的具體行為觀察紀錄（如活動反應、同儕互動、自理表現）：</label>
-        <textarea id="user-input" placeholder="例如：今日美勞活動時，小明在剪紙遇到困難未向老師求助，而是將色紙揉成一團丟在地上..."></textarea>
-      </div>
-
-      <button class="action-btn" onclick="generateAnalysis()">開始生成輔導建議</button>
-
-      <div class="form-group">
-        <label>AI 生成專業建議：</label>
-        <div id="output-box" class="result-area">請於上方輸入內容並點擊「開始生成」，結果將顯示於此處。</div>
-      </div>
-    </main>
-
-  </div>
-
-  <script>
-    function switchTab(btn, title, promptText) {
-      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('current-title').innerText = title;
-      document.getElementById('input-label').innerText = promptText;
-      document.getElementById('output-box').innerText = '請於上方輸入內容並點擊「開始生成」，結果將顯示於此處。';
-    }
-
-    function generateAnalysis() {
-      const input = document.getElementById('user-input').value.trim();
-      const output = document.getElementById('output-box');
-
-      if (!input) {
-        alert('請先輸入相關內容！');
-        return;
-      }
-
-      output.innerText = '處理中，請稍候...';
       
-      // 模擬前端回應示範（若有對接 Apps Script 後端或 API，可在此處調用）
-      setTimeout(() => {
-        output.innerText = `【專業建議已生成】\n針對您輸入的內容：\n「${input}」\n\n1. 幼兒發展分析：此行為反映幼兒在挫折容忍度與求助策略上尚在發展階段。\n2. 教保人員回應引導：建議採同理接納策略，先辨識幼兒情緒（「看到紙破掉了，你覺得很挫折對不對？」），再引導具體解決步驟。\n3. 親師溝通重點：建議向家長客觀陳述現場應對方式，並協同步調引導幼兒用語言表達需求。`;
-      }, 600);
-    }
-  </script>
-</body>
-</html>
+      <div class="key-box">
+        <label>🔑 Google Gemini API Key（系統自動儲存於瀏覽器，免重複輸入）</label>
+        <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
+      </div>
+
+      <!-- 模組 1：議題與學習區結合課程發展 -->
+      <div id="tab-plan" class="tab-content active">
+        <div class="module-header">
+          <h2>🎨 議題與學習區結合課程發展（一學期六個月脈絡）</h2>
+          <p>第 1 個月開學準備 ➔ 第 2-5 個月生活議題探究轉化為學習區任務 ➔ 第 6 個月教學結束回顧統整</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runPlan();">
+          <div class="grid">
+            <div class="form-group">
+              <label>園所全銜</label>
+              <input type="text" id="p-school" value="非營利幼兒園" required>
+            </div>
+            <div class="form-group">
+              <label>任教班級與年段</label>
+              <select id="p-target">
+                <option value="小班（3-4歲）">小班（3-4歲）</option>
+                <option value="中班（4-5歲）" selected>中班（4-5歲）</option>
+                <option value="大班（5-6歲）">大班（5-6歲）</option>
+                <option value="混齡班">混齡班</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="form-group">
+              <label>學期主軸主題名稱</label>
+              <input type="text" id="p-theme" value="我們的社區生活與自然好朋友" placeholder="例如：生活探險家、大地的禮物" required>
+            </div>
+            <div class="form-group">
+              <label>任課教保員</label>
+              <input type="text" id="p-teacher" value="陳老師、林老師" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>班級規劃設置之學習區（已全面更新為建構區）</label>
+            <input type="text" id="p-corners" value="美勞區、建構區、積木區、語文區、扮演區、鬆散素材區" required>
+          </div>
+          <div class="form-group">
+            <label>生活日常容易引發之討論議題構想 / 在地經驗（選填）</label>
+            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢、菜市場採買等生活事件"></textarea>
+          </div>
+          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「議題與學習區結合課程發展」Word (.doc)</button>
+        </form>
+      </div>
+
+      <!-- 模組 2：行為觀察紀錄改寫 -->
+      <div id="tab-obs" class="tab-content">
+        <div class="module-header">
+          <h2>📝 幼兒行為觀察紀錄客觀專業改寫</h2>
+          <p>將日常隨手觀察轉化為客觀行為敘事、對應課綱指標、分析詮釋與後續支持鷹架</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runObs();">
+          <div class="grid">
+            <div class="form-group">
+              <label>幼兒代稱 / 班級</label>
+              <input type="text" id="o-child" value="幼兒A（中班）" required>
+            </div>
+            <div class="form-group">
+              <label>觀察情境 / 學習區角</label>
