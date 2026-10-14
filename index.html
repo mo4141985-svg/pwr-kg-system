@@ -168,9 +168,10 @@
       cursor: pointer;
       margin-top: 10px;
       box-shadow: 0 4px 10px rgba(142, 59, 104, 0.2);
+      transition: opacity 0.2s;
     }
+    .btn:hover { opacity: 0.95; }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
-    .loading { display: none; text-align: center; margin-top: 15px; color: var(--primary); font-weight: 700; font-size: 0.92rem; }
     
     footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
 
@@ -290,27 +291,3 @@
           </div>
           <div class="form-group">
             <label>班級規劃設置之學習區（已全面更新為建構區）</label>
-            <input type="text" id="p-corners" value="美勞區、建構區、積木區、語文區、扮演區、鬆散素材區" required>
-          </div>
-          <div class="form-group">
-            <label>生活日常容易引發之討論議題構想 / 在地經驗（選填）</label>
-            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢、菜市場採買等生活事件"></textarea>
-          </div>
-          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「議題與學習區結合課程發展」Word (.doc)</button>
-        </form>
-      </div>
-
-      <!-- 模組 2：行為觀察紀錄改寫 -->
-      <div id="tab-obs" class="tab-content">
-        <div class="module-header">
-          <h2>📝 幼兒行為觀察紀錄客觀專業改寫</h2>
-          <p>將日常隨手觀察轉化為客觀行為敘事、對應課綱指標、分析詮釋與後續支持鷹架</p>
-        </div>
-        <form onsubmit="event.preventDefault(); runObs();">
-          <div class="grid">
-            <div class="form-group">
-              <label>幼兒代稱 / 班級</label>
-              <input type="text" id="o-child" value="幼兒A（中班）" required>
-            </div>
-            <div class="form-group">
-              <label>觀察情境 / 學習區角</label>
