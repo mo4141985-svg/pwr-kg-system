@@ -238,4 +238,482 @@
       overflow-y: auto;
     }
     
-    footer { text-align: center; padding: 15px; font-size:
+    footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
+
+    @media (max-width: 768px) {
+      header { padding: 12px 14px; }
+      .app-layout { flex-direction: column; padding: 12px; gap: 12px; }
+      .sidebar { width: 100%; }
+      .main-panel { padding: 16px; border-radius: 10px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-wrap">
+      <div class="logo-badge">
+        <span class="icon-ribbon">🎗️</span>
+        <span class="brand-text">彭婉如文教基金會</span>
+      </div>
+      <div class="logo-badge">
+        <span class="icon-elephant">🐘</span>
+        <span class="brand-text">台灣公共托育協會</span>
+      </div>
+    </div>
+    <div class="system-title">幼兒園專業教保管理輔助系統</div>
+  </header>
+
+  <div class="app-layout">
+    
+    <!-- 左側選單 -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">功能模組選單</div>
+        <button type="button" class="menu-item active" id="btn-tab-plan" onclick="switchSidebarTab('plan', this)">
+          <span>🎨 1. 課綱與核心素養課程發展</span>
+        </button>
+        <button type="button" class="menu-item" id="btn-tab-obs" onclick="switchSidebarTab('obs', this)">
+          <span>📝 2. 課綱指標觀察紀錄改寫</span>
+        </button>
+        <button type="button" class="menu-item" id="btn-tab-comment" onclick="switchSidebarTab('comment', this)">
+          <span>🌸 3. 六大領域學期期末評語</span>
+        </button>
+        <button type="button" class="menu-item" id="btn-tab-iep" onclick="switchSidebarTab('iep', this)">
+          <span>🌱 4. 特教 IEP 課綱扣合草案</span>
+        </button>
+      </div>
+
+      <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
+        <strong style="color: var(--primary);">💡 課綱扣合指引：</strong><br>
+        <div id="dynamic-guide">
+          系統將嚴謹對照《幼兒園教保活動課程大綱》，標註完整六大領域指標編碼（身、認、語、社、情、美）與對應之六大核心素養。
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右側主面板 -->
+    <main class="main-panel">
+      
+      <div class="key-box">
+        <label>🔑 Google Gemini API Key（系統自動儲存於瀏覽器，免重複輸入）</label>
+        <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
+      </div>
+
+      <!-- ==================== 【介面 1：課綱與素養課程】 ==================== -->
+      <div id="tab-plan" class="tab-content" style="display: block;">
+        <div class="module-header">
+          <h2>🎨 課綱指標與核心素養結合課程發展（一學期六個月）</h2>
+          <p>緊密對扣教育部幼兒園課程大綱六大領域指標與六大核心素養，輸出完整課程脈絡</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runPlan();">
+          <div class="grid">
+            <div class="form-group">
+              <label>園所全銜</label>
+              <input type="text" id="p-school" value="非營利幼兒園" required>
+            </div>
+            <div class="form-group">
+              <label>任教班級與年段</label>
+              <select id="p-target">
+                <option value="小班（3-4歲）">小班（3-4歲，指標代號：小）</option>
+                <option value="中班（4-5歲）" selected>中班（4-5歲，指標代號：中）</option>
+                <option value="大班（5-6歲）">大班（5-6歲，指標代號：大）</option>
+                <option value="混齡班">混齡班（3-6歲跨年段指標對照）</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="form-group">
+              <label>學期主軸主題名稱</label>
+              <input type="text" id="p-theme" value="我們的社區生活與自然好朋友" placeholder="例如：生活探險家、大地的禮物" required>
+            </div>
+            <div class="form-group">
+              <label>任課教保員</label>
+              <input type="text" id="p-teacher" value="陳老師、林老師" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>本學期核心聚焦素養（六大核心素養）</label>
+            <div class="competency-badges">
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="覺知辨識" checked> 覺知辨識</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="表達溝通" checked> 表達溝通</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="關懷合作" checked> 關懷合作</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="推理賞析" checked> 推理賞析</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="想像創造" checked> 想像創造</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="自主管理" checked> 自主管理</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>班級規劃設置之學習區（已全面更新為建構區）</label>
+            <input type="text" id="p-corners" value="美勞區、建構區、積木區、語文區、扮演區、鬆散素材區" required>
+          </div>
+          <div class="form-group">
+            <label>生活日常容易引發之討論議題構想 / 在地經驗（選填）</label>
+            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢等生活事件"></textarea>
+          </div>
+          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「扣合課綱與核心素養課程計畫」Word (.doc)</button>
+        </form>
+
+        <div id="res-plan-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 課綱與核心素養課程規劃成果</span>
+            <button class="btn-export" onclick="exportWord('res-plan-text', '學期課綱課程發展計畫')">📥 匯出 Word 檔 (.doc)</button>
+          </div>
+          <div id="res-plan-text" class="result-area"></div>
+        </div>
+      </div>
+
+      <!-- ==================== 【介面 2：行為觀察紀錄客觀改寫】 ==================== -->
+      <div id="tab-obs" class="tab-content" style="display: none;">
+        <div class="module-header">
+          <h2>📝 幼兒行為觀察紀錄課綱與核心素養改寫</h2>
+          <p>客觀行為敘事 ➔ 嚴謹對應課綱六大領域指標 ➔ 深度解析六大核心素養展現 ➔ 教師支持鷹架</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runObs();">
+          <div class="grid">
+            <div class="form-group">
+              <label>幼兒代稱 / 班級</label>
+              <input type="text" id="o-child" value="幼兒A（中班）" required>
+            </div>
+            <div class="form-group">
+              <label>觀察情境 / 學習區角</label>
+              <input type="text" id="o-corner" value="積木區 / 鬆散素材" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>隨手記錄之行為原始事實（人事時地物與幼兒原話）</label>
+            <textarea id="o-raw" placeholder="例如：在積木區嘗試搭高塔，倒了三次後大叫丟積木，老師走近後跟老師說『積木都不聽話』..." required></textarea>
+          </div>
+          <button type="submit" class="btn" id="btn-obs">📝 生成對扣課綱領域指標與素養之分析紀錄</button>
+        </form>
+
+        <div id="res-obs-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 專業行為觀察紀錄成果</span>
+            <button class="btn-export" onclick="exportWord('res-obs-text', '課綱指標行為觀察紀錄')">📥 匯出 Word 檔 (.doc)</button>
+          </div>
+          <div id="res-obs-text" class="result-area"></div>
+        </div>
+      </div>
+
+      <!-- ==================== 【介面 3：學期期末評語】 ==================== -->
+      <div id="tab-comment" class="tab-content" style="display: none;">
+        <div class="module-header">
+          <h2>🌸 幼兒學期期末評語（扣合課綱六大領域成長）</h2>
+          <p>融合身體動作、認知、語文、社會、情緒、美感六大領域發展現況，產出富教育專業與溫度的評語</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runComment();">
+          <div class="grid">
+            <div class="form-group">
+              <label>幼兒代稱 / 年段</label>
+              <input type="text" id="c-child" value="幼兒B（大班）" required>
+            </div>
+            <div class="form-group">
+              <label>評語呈現架構</label>
+              <select id="c-style">
+                <option value="整合篇章型（溫暖敘事，內嵌六大核心素養亮點）" selected>整合篇章型（溫暖敘事，內嵌六大核心素養亮點）</option>
+                <option value="六大領域指標分項型（六大領域個別條列成長）">六大領域指標分項型（六大領域個別條列成長）</option>
+                <option value="親師攜手型（肯定優勢 ＋ 正向親職引導建議）">親師攜手型（肯定優勢 ＋ 正向親職引導建議）</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>幼兒本學期在各學習區的成長具體表現（選填越具體，分析越精準）</label>
+            <textarea id="c-highlight" placeholder="例如：在建構區能與同儕合作看圖搭建高難度結構；語文區能完整敘述生活經驗；自理能力顯著進步，會主動協助整理環境..." required></textarea>
+          </div>
+          <button type="submit" class="btn" id="btn-comment">🌸 生成扣合領域發展之期末評語建議</button>
+        </form>
+
+        <div id="res-comment-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 期末綜合評語建議</span>
+            <button class="btn-export" onclick="exportWord('res-comment-text', '幼兒學期期末評語')">📥 匯出 Word 檔 (.doc)</button>
+          </div>
+          <div id="res-comment-text" class="result-area"></div>
+        </div>
+      </div>
+
+      <!-- ==================== 【介面 4：特教 IEP 草案】 ==================== -->
+      <div id="tab-iep" class="tab-content" style="display: none;">
+        <div class="module-header">
+          <h2>🌱 特殊教育個別化教育計畫（IEP，對應課綱分階領域指標）</h2>
+          <p>根據幼兒發展現況，擬定符合 SMART 原則且嚴謹扣合教保課綱指標之學期長短程目標</p>
+        </div>
+        <form onsubmit="event.preventDefault(); runIep();">
+          <div class="grid">
+            <div class="form-group">
+              <label>幼兒代稱 / 生理年齡</label>
+              <input type="text" id="i-child" value="幼兒C（小班，3歲8個月）" required>
+            </div>
+            <div class="form-group">
+              <label>特教身分 / 需求類別</label>
+              <input type="text" id="i-type" value="發展遲緩（語言理解與表達、社會情緒）" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>目前能力現況描述與主要融合挑戰</label>
+            <textarea id="i-status" placeholder="例如：生活自理能自己拿湯匙進食但需提醒坐好；單詞表達為主、少雙向對話；遇挫折易拍打桌面哭鬧；喜愛在建構區操作磁力片..." required></textarea>
+          </div>
+          <button type="submit" class="btn" id="btn-iep">🌱 生成對扣課綱指標之 IEP 學期計畫草案</button>
+        </form>
+
+        <div id="res-iep-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ IEP 個別化教育計畫草案</span>
+            <button class="btn-export" onclick="exportWord('res-iep-text', '特教IEP草案_扣合課綱指標')">📥 匯出 Word 檔 (.doc)</button>
+          </div>
+          <div id="res-iep-text" class="result-area"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <footer>
+    彭婉如文教基金會・台灣公共托育協會 © 教保專業支持研發團隊
+  </footer>
+
+  <script>
+    const guides = {
+      plan: '系統自動將一學期六個月脈絡與「六大核心素養」及「課綱領域指標代號（身、認、語、社、情、美）」精準勾稽，產出可直接送審之教案。',
+      obs: '輸入日常質性速記，自動轉為客觀敘事，並嚴格標註符合該年段之課綱領域能力指標代號（如認-中-2-1-1）與核心素養詮釋。',
+      comment: '融貫課綱六大領域發展現況，展現幼兒在學習區探究時的核心素養亮點，產出具專業度與溫暖情感的評語。',
+      iep: '每項長短程目標均明確標註所對扣之幼兒園課綱領域指標代號，並提供普通班融合環境調整具體策略。'
+    };
+
+    // 核心切換邏輯：直接強制控制 style.display，絕不受 CSS 衝突影響
+    function switchSidebarTab(tabName, clickedBtn) {
+      // 1. 切換按鈕高亮
+      document.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
+      if (clickedBtn) {
+        clickedBtn.classList.add('active');
+      }
+
+      // 2. 切換四個介面
+      const allTabs = ['plan', 'obs', 'comment', 'iep'];
+      allTabs.forEach(id => {
+        const panel = document.getElementById('tab-' + id);
+        if (panel) {
+          panel.style.display = (id === tabName) ? 'block' : 'none';
+        }
+      });
+
+      // 3. 更新指引文字
+      const guideBox = document.getElementById('dynamic-guide');
+      if (guideBox && guides[tabName]) {
+        guideBox.innerText = guides[tabName];
+      }
+    }
+
+    // 本地記錄 API Key
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    if (apiKeyInput) {
+      apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
+      apiKeyInput.addEventListener('input', (e) => {
+        localStorage.setItem('gemini_api_key', e.target.value.trim());
+      });
+    }
+
+    function getApiKey() {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        alert('請先在上方輸入您的 Google Gemini API Key！');
+        apiKeyInput.focus();
+        return null;
+      }
+      return key;
+    }
+
+    // 呼叫 Gemini 介面（已配置最新模型 gemini-3.8-flash）
+    async function callGemini(prompt, btnId, boxId, textId) {
+      const apiKey = getApiKey();
+      if (!apiKey) return;
+
+      const btn = document.getElementById(btnId);
+      const originalText = btn.innerText;
+      btn.disabled = true;
+      btn.innerText = '⏳ 系統正比對教保課綱指標與核心素養生成中...';
+
+      const box = document.getElementById(boxId);
+      const textElem = document.getElementById(textId);
+      box.classList.remove('show');
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.6 }
+          })
+        });
+
+        const data = await res.json();
+        if (data.error) throw new Error(data.error.message || 'API 呼叫失敗');
+
+        const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (content) {
+          textElem.innerText = content;
+          box.classList.add('show');
+          box.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          throw new Error('未取得生成結果，請檢查 API Key 或網路連線。');
+        }
+      } catch (err) {
+        alert('生成失敗：' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = originalText;
+      }
+    }
+
+    // 匯出 Word 檔 (.doc)
+    function exportWord(textElemId, filenamePrefix) {
+      const content = document.getElementById(textElemId).innerText;
+      if (!content) {
+        alert('尚無可匯出的內容！');
+        return;
+      }
+
+      const htmlContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>教保專業文件</title>
+        <style>
+          body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; }
+          h1, h2, h3 { color: #8E3B68; }
+        </style>
+        </head>
+        <body>
+          <pre style="white-space: pre-wrap; font-family: 'Microsoft JhengHei', sans-serif; font-size: 11pt;">${content}</pre>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\ufeff' + htmlContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${filenamePrefix}_${new Date().toISOString().slice(0, 10)}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // 模組 1：課綱與素養課程
+    function runPlan() {
+      const school = document.getElementById('p-school').value;
+      const target = document.getElementById('p-target').value;
+      const theme = document.getElementById('p-theme').value;
+      const teacher = document.getElementById('p-teacher').value;
+      const corners = document.getElementById('p-corners').value;
+      const highlight = document.getElementById('p-highlight').value;
+
+      const checkedComp = Array.from(document.querySelectorAll('input[name="p-comp"]:checked'))
+                               .map(cb => cb.value).join('、');
+
+      const prompt = `
+你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園教學輔導的專家督導。請為【${school}】的【${target}】設計一份嚴格扣合「課綱領域能力指標」與「六大核心素養」的一學期六個月課程發展脈絡計畫。
+
+【課程背景】
+- 主題名稱：${theme}
+- 任教教保員：${teacher}
+- 班級學習區：${corners}
+- 本學期重點核心素養：${checkedComp || '六大核心素養全員融入'}
+- 生活生活經驗/在地議題：${highlight || '由生活周遭日常發現引導探究'}
+
+【撰寫結構要求（必須嚴格條列課綱代碼與素養）】：
+一、 課程設計理念（說明如何由幼兒生活議題出發，結合探究式學習區並落實核心素養）
+二、 六大核心素養對應落實表：
+     請針對所選核心素養（覺知辨識、表達溝通、關懷合作、推理賞析、想像創造、自主管理），逐一說明本學期幼兒具體的行為表現與落實情境。
+三、 扣合之課綱領域能力指標矩陣（必須包含：領域名稱、指標編碼如「認-中-1-1-1」、指標全文、年段對應）：
+     - 身體動作與健康領域
+     - 認知領域
+     - 語文領域
+     - 社會領域
+     - 情緒領域
+     - 美感領域
+四、 學期六個月推進脈絡與學習區任務對照表：
+     - 第 1 個月：開學常規建立、環境探索與學習區導入（註明扣合指標）
+     - 第 2 個月：生活議題萌發、問題提出與初步表徵（註明扣合指標）
+     - 第 3 個月：深入探索與材料實驗、跨區互動（註明扣合指標）
+     - 第 4 個月：遭遇挑戰、同儕合作解決與建構深化（註明扣合指標）
+     - 第 5 個月：探究成果雛形形成、社群分享與修正（註明扣合指標）
+     - 第 6 個月：主題統整回顧展、學習歷程反思與發表（註明扣合指標）
+五、 各學習區（美勞區、建構區、積木區、語文區等）之材料投放、挑戰任務與教師鷹架提問策略
+`;
+      callGemini(prompt, 'btn-plan', 'res-plan-box', 'res-plan-text');
+    }
+
+    // 模組 2：行為觀察紀錄
+    function runObs() {
+      const child = document.getElementById('o-child').value;
+      const corner = document.getElementById('o-corner').value;
+      const raw = document.getElementById('o-raw').value;
+
+      const prompt = `
+你是一位具備幼兒觀察評量專業的教保輔導員。請將以下隨手觀察筆記，改寫為符合台灣教保課程評量標準的「專業客觀行為觀察紀錄」：
+
+【基本資料】幼兒：${child} / 觀察情境：${corner}
+【原始速記】：${raw}
+
+【請輸出以下專業結構】：
+一、 客觀行為描述（去主觀評價、客觀完整記錄人事時地物、材料操作與語言互動對話）
+二、 扣合之六大核心素養詮釋：
+     明確分析幼兒在此行為中展現了哪一項核心素養（例如：推理賞析、自主管理、關懷合作等），並說明其質性意義。
+三、 扣合之課綱領域能力指標（格式規範）：
+     - 領域與指標編碼（例如：認-中-2-2-1）
+     - 指標完整文字內容
+     - 具體對應行為佐證說明
+四、 幼兒發展現況深入分析（認知運思、情緒調節、精細/粗大動作、同儕互動）
+五、 教師後續個別化鷹架支持策略（物理環境材料調整、引導性提問引導策略、學習區任務延伸）
+`;
+      callGemini(prompt, 'btn-obs', 'res-obs-box', 'res-obs-text');
+    }
+
+    // 模組 3：學期評語
+    function runComment() {
+      const child = document.getElementById('c-child').value;
+      const style = document.getElementById('c-style').value;
+      const highlight = document.getElementById('c-highlight').value;
+
+      const prompt = `
+請為幼兒園教保員撰寫期末給家長的綜合評語，必須融入台灣幼兒園課綱六大領域發展現況：
+【對象】：${child}
+【呈現架構】：${style}
+【學期表現重點與成長亮點】：${highlight}
+
+【撰寫規範】：
+1. 語氣溫暖有溫度，展現對孩子的細微看見，肯定其在「六大核心素養」（如自主管理、表達溝通、關懷合作等）上的具體進步。
+2. 清楚帶出孩子在各領域的發展亮點（身心動作健康、認知探究、語文表達、社會人際、情緒覺察調節、美感創作）。
+3. 提供 2 到 3 種不同篇幅（精煉版、完整版）的建議，兼顧教育專業性與親師合作的溫暖期許。
+`;
+      callGemini(prompt, 'btn-comment', 'res-comment-box', 'res-comment-text');
+    }
+
+    // 模組 4：特教 IEP
+    function runIep() {
+      const child = document.getElementById('i-child').value;
+      const type = document.getElementById('i-type').value;
+      const status = document.getElementById('i-status').value;
+
+      const prompt = `
+你是一位幼兒特殊教育專業輔導教師。請針對以下幼兒現況，擬定符合台灣幼兒園教保課綱規範之學期個別化教育計畫（IEP）輔助草案：
+【幼兒對象】：${child}
+【需求特質/特教類別】：${type}
+【能力現況與挑戰】：${status}
+
+【輸出結構要求】：
+一、 學期長程目標（依領域分項：如認知、語言、社會情緒、生活自理與動作，並標註扣合之核心素養）
+二、 短程目標（符合 SMART 原則，具備具體起點行為、評量條件與通過標準），且「每一條短程目標下方，必須嚴謹標註所對應之幼兒園課綱領域能力指標編碼與完整名稱（例如：社-小-1-2-1 覺察自己的情緒）」。
+三、 普通班環境與教學調整具體策略（作息轉換提示、學習區材料分級調整、視覺提示策略、同儕小天使配對支持）。
+四、 親師合作與家庭延伸支持策略。
+`;
+      callGemini(prompt, 'btn-iep', 'res-iep-box', 'res-iep-text');
+    }
+  </script>
+</body>
+</html>
