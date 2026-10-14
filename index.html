@@ -155,7 +155,6 @@
     textarea { resize: vertical; min-height: 90px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-    /* 六大核心素養多選框樣式 */
     .competency-badges {
       display: flex;
       flex-wrap: wrap;
@@ -192,7 +191,6 @@
     }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
 
-    /* 生成成果展示區塊 */
     .result-box {
       margin-top: 24px;
       padding: 20px;
@@ -222,17 +220,34 @@
       cursor: pointer;
     }
     .btn-export:hover { background: #205E5C; }
+    
+    /* 預覽區專用正式公文表格呈現樣式 */
     .result-area {
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 0.93rem;
-      line-height: 1.7;
       background: #FFFFFF;
-      padding: 16px;
+      padding: 18px;
       border-radius: 8px;
       border: 1px solid #EEDEE6;
-      max-height: 520px;
+      max-height: 560px;
       overflow-y: auto;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+    .result-area table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px 0;
+      background: #fff;
+    }
+    .result-area th, .result-area td {
+      border: 1px solid #C497B0;
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .result-area th {
+      background-color: #F6EDF2;
+      color: #551D3A;
+      font-weight: 700;
     }
     
     footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
@@ -269,7 +284,7 @@
       <div class="sidebar-card">
         <div class="sidebar-title">功能模組選單</div>
         <button type="button" class="menu-item active" id="btn-tab-plan" onclick="switchSidebarTab('plan', this)">
-          <span>🎨 1. 階層化指標與任務課程發展</span>
+          <span>🎨 1. 制定正式表格課程計畫</span>
         </button>
         <button type="button" class="menu-item" id="btn-tab-obs" onclick="switchSidebarTab('obs', this)">
           <span>📝 2. 課綱指標觀察紀錄改寫</span>
@@ -283,9 +298,9 @@
       </div>
 
       <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
-        <strong style="color: var(--primary);">💡 指標遞進階梯指引：</strong><br>
+        <strong style="color: var(--primary);">💡 正式制定格式指引：</strong><br>
         <div id="dynamic-guide">
-          系統將學習區任務嚴格依照課綱指標「1-1 ➔ 1-2 ➔ 2-1 ➔ 2-2 ➔ 2-3 ➔ 3-1」階層式向下延伸推進，每月任務難度層層遞增。
+          系統輸出正式公文表格（包含表頭、格線、欄位），且「指標代號」與「核心素養標識數字」一律嚴格置於前端呈現。
         </div>
       </div>
     </aside>
@@ -298,11 +313,11 @@
         <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
       </div>
 
-      <!-- ==================== 【介面 1：階層化指標與任務課程發展】 ==================== -->
+      <!-- ==================== 【介面 1：制定正式表格課程計畫】 ==================== -->
       <div id="tab-plan" class="tab-content" style="display: block;">
         <div class="module-header">
-          <h2>🎨 階層化指標延伸 × 1+4+1 任務導向連續性課程發展</h2>
-          <p>第1月準備(1-1) ➔ 第2-5月連貫議題與指標難度階層遞進(1-2➔2-1➔2-2➔2-3) ➔ 第6月統整評析(3-1)</p>
+          <h2>🎨 制定表格格式：指標階層延伸 × 1+4+1 任務導向學期課程發展計畫</h2>
+          <p>全表格制定排版 ➔ 指標與素養數字嚴格前置 ➔ 1-1 至 3-1 階層式推進 ➔ 可直接匯出正式 Word 表格檔</p>
         </div>
         <form onsubmit="event.preventDefault(); runPlan();">
           <div class="grid">
@@ -332,14 +347,14 @@
           </div>
 
           <div class="form-group">
-            <label>本學期核心聚焦素養（六大核心素養）</label>
+            <label>本學期核心聚焦素養（數字代號前置）</label>
             <div class="competency-badges">
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="覺知辨識" checked> 覺知辨識</label>
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="表達溝通" checked> 表達溝通</label>
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="關懷合作" checked> 關懷合作</label>
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="推理賞析" checked> 推理賞析</label>
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="想像創造" checked> 想像創造</label>
-              <label class="badge-check"><input type="checkbox" name="p-comp" value="自主管理" checked> 自主管理</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="1. 覺知辨識" checked> 1. 覺知辨識</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="2. 表達溝通" checked> 2. 表達溝通</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="3. 關懷合作" checked> 3. 關懷合作</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="4. 推理賞析" checked> 4. 推理賞析</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="5. 想像創造" checked> 5. 想像創造</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="6. 自主管理" checked> 6. 自主管理</label>
             </div>
           </div>
 
@@ -349,17 +364,17 @@
           </div>
 
           <div class="form-group">
-            <label>生活議題萌芽觸媒 / 初始生活經驗（牽引六個月連續探究與任務遞進的核心事件）</label>
+            <label>生活議題萌芽觸媒 / 在地經驗（牽引六個月連續探究與階梯難度之關鍵起點）</label>
             <textarea id="p-highlight" placeholder="例如：在園所角落發現落葉被清潔隊掃走，引發『落葉去哪裡』的討論；下雨天戶外積水帶動水流與排水探究；在菜市場看見各種食材引發的採買與分類探究..."></textarea>
           </div>
 
-          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「指標階層延伸 × 任務導向學期計畫」Word (.doc)</button>
+          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「正式制定表格檔」Word (.doc)</button>
         </form>
 
         <div id="res-plan-box" class="result-box">
           <div class="result-header">
-            <span class="result-title">✨ 指標階層延伸與任務課程成果</span>
-            <button class="btn-export" onclick="exportWord('res-plan-text', '六個月階層化指標課程計畫')">📥 匯出 Word 檔 (.doc)</button>
+            <span class="result-title">✨ 正式表格課程發展計畫預覽</span>
+            <button class="btn-export" onclick="exportFormattedWord('res-plan-text', '學期課程發展計畫正式表格')">📥 匯出正式 Word 表格檔 (.doc)</button>
           </div>
           <div id="res-plan-text" class="result-area"></div>
         </div>
@@ -386,13 +401,13 @@
             <label>隨手記錄之行為原始事實（人事時地物與幼兒原話）</label>
             <textarea id="o-raw" placeholder="例如：在積木區嘗試搭高塔，倒了三次後大叫丟積木，老師走近後跟老師說『積木都不聽話』..." required></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-obs">📝 生成對扣課綱領域指標與素養之分析紀錄</button>
+          <button type="submit" class="btn" id="btn-obs">📝 生成對扣課綱領域指標與素養之正式分析紀錄</button>
         </form>
 
         <div id="res-obs-box" class="result-box">
           <div class="result-header">
             <span class="result-title">✨ 專業行為觀察紀錄成果</span>
-            <button class="btn-export" onclick="exportWord('res-obs-text', '課綱指標行為觀察紀錄')">📥 匯出 Word 檔 (.doc)</button>
+            <button class="btn-export" onclick="exportFormattedWord('res-obs-text', '課綱指標行為觀察紀錄')">📥 匯出正式 Word 表格檔 (.doc)</button>
           </div>
           <div id="res-obs-text" class="result-area"></div>
         </div>
@@ -429,7 +444,7 @@
         <div id="res-comment-box" class="result-box">
           <div class="result-header">
             <span class="result-title">✨ 期末綜合評語建議</span>
-            <button class="btn-export" onclick="exportWord('res-comment-text', '幼兒學期期末評語')">📥 匯出 Word 檔 (.doc)</button>
+            <button class="btn-export" onclick="exportFormattedWord('res-comment-text', '幼兒學期期末評語')">📥 匯出 Word 檔 (.doc)</button>
           </div>
           <div id="res-comment-text" class="result-area"></div>
         </div>
@@ -456,13 +471,13 @@
             <label>目前能力現況描述與主要融合挑戰</label>
             <textarea id="i-status" placeholder="例如：生活自理能自己拿湯匙進食但需提醒坐好；單詞表達為主、少雙向對話；遇挫折易拍打桌面哭鬧；喜愛在建構區操作磁力片..." required></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-iep">🌱 生成對扣課綱指標之 IEP 學期計畫草案</button>
+          <button type="submit" class="btn" id="btn-iep">🌱 生成對扣課綱指標之 IEP 正式表格草案</button>
         </form>
 
         <div id="res-iep-box" class="result-box">
           <div class="result-header">
             <span class="result-title">✨ IEP 個別化教育計畫草案</span>
-            <button class="btn-export" onclick="exportWord('res-iep-text', '特教IEP草案_扣合課綱指標')">📥 匯出 Word 檔 (.doc)</button>
+            <button class="btn-export" onclick="exportFormattedWord('res-iep-text', '特教IEP草案_制定表格')">📥 匯出正式 Word 表格檔 (.doc)</button>
           </div>
           <div id="res-iep-text" class="result-area"></div>
         </div>
@@ -477,8 +492,8 @@
 
   <script>
     const guides = {
-      plan: '系統將學習區任務嚴格依照課綱指標「1-1 ➔ 1-2 ➔ 2-1 ➔ 2-2 ➔ 2-3 ➔ 3-1」階層式向下延伸推進，每月任務難度層層遞增。',
-      obs: '輸入日常質性速記，自動轉為客觀敘事，並嚴格標註符合該年段之課綱領域能力指標代號（如認-中-2-1-1）與核心素養詮釋。',
+      plan: '系統輸出正式公文表格（包含表頭、格線、欄位），且「指標代號」與「核心素養標識數字」一律嚴格置於前端呈現。',
+      obs: '輸入日常質性速記，自動轉為正式表格化分析，指標代碼與素養編號嚴格置前。',
       comment: '融貫課綱六大領域發展現況，展現幼兒在學習區探究時的核心素養亮點，產出具專業度與溫暖情感的評語。',
       iep: '每項長短程目標均明確標註所對扣之幼兒園課綱領域指標代號，並提供普通班融合環境調整具體策略。'
     };
@@ -521,14 +536,14 @@
       return key;
     }
 
-    async function callGemini(prompt, btnId, boxId, textId) {
+    async function callGeminiHTML(prompt, btnId, boxId, textId) {
       const apiKey = getApiKey();
       if (!apiKey) return;
 
       const btn = document.getElementById(btnId);
       const originalText = btn.innerText;
       btn.disabled = true;
-      btn.innerText = '⏳ 系統正運算指標階層遞進與任務深層架構中...';
+      btn.innerText = '⏳ 系統正在編排正式表格與指標階梯格式中...';
 
       const box = document.getElementById(boxId);
       const textElem = document.getElementById(textId);
@@ -540,16 +555,18 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.6 }
+            generationConfig: { temperature: 0.5 }
           })
         });
 
         const data = await res.json();
         if (data.error) throw new Error(data.error.message || 'API 呼叫失敗');
 
-        const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        let content = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (content) {
-          textElem.innerText = content;
+          // 清除可能包在最外層的 markdown 標記
+          content = content.replace(/^```html\s*/i, '').replace(/```\s*$/i, '');
+          textElem.innerHTML = content;
           box.classList.add('show');
           box.scrollIntoView({ behavior: 'smooth' });
         } else {
@@ -563,8 +580,9 @@
       }
     }
 
-    function exportWord(textElemId, filenamePrefix) {
-      const content = document.getElementById(textElemId).innerText;
+    // 匯出具備正式 Word 邊框與樣式的表格檔 (.doc)
+    function exportFormattedWord(textElemId, filenamePrefix) {
+      const content = document.getElementById(textElemId).innerHTML;
       if (!content) {
         alert('尚無可匯出的內容！');
         return;
@@ -574,12 +592,17 @@
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
         <head><meta charset='utf-8'><title>教保專業文件</title>
         <style>
-          body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; }
-          h1, h2, h3 { color: #8E3B68; }
+          body { font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif; font-size: 11pt; line-height: 1.5; color: #000; }
+          h1 { font-size: 16pt; color: #661D44; text-align: center; margin-bottom: 6px; }
+          h2 { font-size: 13pt; color: #7B2A56; margin-top: 14px; margin-bottom: 6px; border-left: 5px solid #8E3B68; padding-left: 8px; }
+          table { width: 100%; border-collapse: collapse; margin-bottom: 16px; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+          th, td { border: 1pt solid #7B2A56; padding: 7px 9px; vertical-align: top; font-size: 10pt; }
+          th { background-color: #F4E8EE; color: #4A122E; font-weight: bold; text-align: center; }
+          .highlight { font-weight: bold; color: #8E3B68; }
         </style>
         </head>
         <body>
-          <pre style="white-space: pre-wrap; font-family: 'Microsoft JhengHei', sans-serif; font-size: 11pt;">${content}</pre>
+          ${content}
         </body>
         </html>
       `;
@@ -595,7 +618,7 @@
       URL.revokeObjectURL(url);
     }
 
-    // 模組 1：階層化指標延伸 × 1+4+1 任務課程發展
+    // 模組 1：制定表格格式：指標階梯延伸 × 1+4+1 任務課程發展
     function runPlan() {
       const school = document.getElementById('p-school').value;
       const target = document.getElementById('p-target').value;
@@ -608,150 +631,271 @@
                                .map(cb => cb.value).join('、');
 
       const prompt = `
-你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園教學輔導的專家督導。請為【${school}】的【${target}】設計一份**「指標階梯延伸 × 1+4+1 任務導向連續性課程發展計畫」**。
+你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園評鑑備查格式的專家督導。請為【${school}】的【${target}】產出一份**「正式制定表格排版」**的學期課程計畫。
 
-【課程基本條件】
-- 園所班級：${school} ${target}
-- 主題名稱：${theme}
-- 任教教保員：${teacher}
-- 班級學習區配置：${corners}
-- 聚焦核心素養：${checkedComp || '六大核心素養全員融入'}
-- 探究議題萌芽起點：${highlight || '由生活周遭日常發現引導探究'}
+【關鍵排版與呈現原則（極重要）】：
+1. **輸出格式必須全部為乾淨、標準的 HTML 表格（含 <table>, <tr>, <th>, <td> 標籤）**，請勿使用純文本條列，以確保匯入 Word 時為具備實線格線的正式公文表格。
+2. **所有課綱指標代碼「必須嚴格置於文字最前方」**，格式如：【認-中-1-1-1】指標名稱說明。
+3. **所有核心素養的標識數字「必須嚴格置於最前方」**，格式如：【素養1：覺知辨識】具體展現說明。
+4. **指標階梯向下延伸**：第1月(1-1) ➔ 第2月(1-2) ➔ 第3月(2-1) ➔ 第4月(2-2/2-3) ➔ 第5月(2-3/2-4) ➔ 第6月(3-1)。
 
-==================================================
-【最核心教學設計規範：課綱指標與學習區任務的階層式遞進（指標階梯）】
-教學實務上，學習區任務規劃必須「搭配指標進行階層式延伸與難度累進」：
-- 第 1 個月：主要聚焦於「1-1」類型的基礎覺知指標（覺察材料特性、常規與環境）。
-- 第 2 個月：往下延伸至「1-2」類型的探索觀察指標（觀察特徵、比較異同、記錄因果）。
-- 第 3 個月：跨入「2-1」類型的操作應用指標（運用工具技法、跨區材料借用、進行實驗）。
-- 第 4 個月：深化至「2-2 / 2-3」類型的問題解決指標（面對挫折、調整策略、同儕協商除錯）。
-- 第 5 個月：進階至「2-3 / 2-4」類型的整合共構指標（班級共同大型表徵、情境試營運、社群分享）。
-- 第 6 個月：躍升至「3-1」高階的賞析反思與發表指標（歷程回顧評析、小策展人導覽發表）。
+【請嚴格依據以下結構輸出標準 HTML 表格】：
 
-請產出以下結構嚴謹的完整教案：
+<h1>${school} ${target} 學期課程發展與學習區任務規劃表</h1>
 
-一、 課程總體設計理念與「指標階梯 × 任務導向探究螺旋」架構說明：
-     說明主題如何從生活經驗出發，如何透過任務卡帶動學習區，並說明指標代號如何由 1-1 循序向下延伸至 2-X 與 3-1，展現難度漸進的邏輯。
+<h2>表一、課程基本資料與核心素養對照表</h2>
+<table>
+  <tr>
+    <th style="width: 18%;">學期主軸主題</th>
+    <td style="width: 32%;">${theme}</td>
+    <th style="width: 18%;">任課教保員</th>
+    <td style="width: 32%;">${teacher}</td>
+  </tr>
+  <tr>
+    <th>班級設置學習區</th>
+    <td colspan="3">${corners}</td>
+  </tr>
+  <tr>
+    <th>探究生活起點觸媒</th>
+    <td colspan="3">${highlight || '由校園生活事件與日常經驗萌發'}</td>
+  </tr>
+  <tr>
+    <th>本學期聚焦核心素養<br>(標識數字一律置前)</th>
+    <td colspan="3">
+      請條列說明幼兒在本主題中如何落實所選素養，每項素養前方必須加上數字編號：<br>
+      例：【素養1：覺知辨識】...<br>
+      【素養2：表達溝通】...<br>
+      【素養3：關懷合作】...<br>
+      【素養4：推理賞析】...<br>
+      【素養5：想像創造】...<br>
+      【素養6：自主管理】...（依選擇之項目：${checkedComp} 撰寫）
+    </td>
+  </tr>
+</table>
 
-二、 六大核心素養深耕對照表：
-     條列幼兒在生活與探究情境中，具體的行為表現與落實方式（覺知辨識、表達溝通、關懷合作、推理賞析、想像創造、自主管理）。
+<h2>表二、全學期課綱領域能力指標階梯進階矩陣表</h2>
+<table>
+  <tr>
+    <th style="width: 18%;">領域分類</th>
+    <th style="width: 20%;">初階覺察探索<br>(1-1 至 1-2)</th>
+    <th style="width: 30%;">進階操作與除錯運用<br>(2-1 至 2-3)</th>
+    <th style="width: 32%;">高階整合與賞析發表<br>(2-4 至 3-1)</th>
+  </tr>
+  <tr>
+    <td>認知領域</td>
+    <td>【認-中-1-1-1】...<br>【認-中-1-2-1】...</td>
+    <td>【認-中-2-1-2】...<br>【認-中-2-3-1】...</td>
+    <td>【認-中-3-1-1】...</td>
+  </tr>
+  <tr>
+    <td>身體動作與健康</td>
+    <td>【身-中-1-1-1】...</td>
+    <td>【身-中-2-1-1】...</td>
+    <td>【身-中-2-2-1】...</td>
+  </tr>
+  <tr>
+    <td>語文領域</td>
+    <td>【語-中-1-2-1】...</td>
+    <td>【語-中-2-1-1】...</td>
+    <td>【語-中-2-4-1】...</td>
+  </tr>
+  <tr>
+    <td>社會領域</td>
+    <td>【社-中-1-1-1】...</td>
+    <td>【社-中-2-2-2】...</td>
+    <td>【社-中-3-1-1】...</td>
+  </tr>
+  <tr>
+    <td>情緒領域</td>
+    <td>【情-中-1-1-1】...</td>
+    <td>【情-中-2-1-1】...</td>
+    <td>【情-中-3-1-1】...</td>
+  </tr>
+  <tr>
+    <td>美感領域</td>
+    <td>【美-中-1-1-1】...</td>
+    <td>【美-中-2-1-1】...</td>
+    <td>【美-中-3-1-1】...</td>
+  </tr>
+</table>
 
-三、 全學期課綱領域能力指標階梯總覽（條列身體動作、認知、語文、社會、情緒、美感領域在本主題中從 1-1、1-2、2-1、2-2 到 3-1 的完整階梯式指標條文矩陣）。
+<h2>表三、1+4+1 六個月連續性探究任務與指標階梯推進總表</h2>
+<table>
+  <tr>
+    <th style="width: 10%;">月份/期程</th>
+    <th style="width: 14%;">指標階梯定位<br>(代號嚴格置前)</th>
+    <th style="width: 20%;">連貫生活議題<br>與團討探究焦點</th>
+    <th style="width: 36%;">學習區具體任務卡規劃<br>(依各區細緻列出任務內容)</th>
+    <th style="width: 20%;">落實核心素養<br>(標識數字置前)</th>
+  </tr>
+  <tr>
+    <td><b>第 1 個月</b><br>【準備月】</td>
+    <td><b>【1-1 基礎覺察】</b><br>【身-中-1-1-1】...<br>【認-中-1-1-1】...<br>【社-中-1-1-1】...</td>
+    <td><b>議題：</b>我們的新教室與學習區朋友<br><b>團討：</b>學習區材料怎麼使用與收拾？埋下主題起點伏筆。</td>
+    <td>
+      • <b>積木/建構區：</b>分類歸位挑戰任務卡。<br>
+      • <b>美勞區：</b>剪刀膠水安全使用考照任務。<br>
+      • <b>語文區：</b>閱讀護照啟用與借閱任務。
+    </td>
+    <td>【素養6：自主管理】...<br>【素養1：覺知辨識】...</td>
+  </tr>
+  <tr>
+    <td><b>第 2 個月</b><br>【發展期一】</td>
+    <td><b>【1-2 特徵關係】</b><br>【認-中-1-2-1】...<br>【語-中-1-2-2】...</td>
+    <td><b>議題：</b>（由第1月起點引發之生活現象）<br><b>團討：</b>師生聚焦第一波探究核心提問。</td>
+    <td>（列出各學習區第2個月具體任務卡）</td>
+    <td>【素養1：覺知辨識】...<br>【素養2：表達溝通】...</td>
+  </tr>
+  <tr>
+    <td><b>第 3 個月</b><br>【發展期二】</td>
+    <td><b>【2-1 操作應用】</b><br>【認-中-2-1-2】...<br>【美-中-2-1-1】...</td>
+    <td><b>議題：</b>（承接第2月之延伸疑問）<br><b>團討：</b>如何跨區借用材料實驗找答案？</td>
+    <td>（列出各學習區第3個月跨區合作與實驗任務卡）</td>
+    <td>【素養4：推理賞析】...<br>【素養3：關懷合作】...</td>
+  </tr>
+  <tr>
+    <td><b>第 4 個月</b><br>【發展期三】</td>
+    <td><b>【2-2/2-3 解決問題】</b><br>【認-中-2-3-1】...<br>【社-中-2-2-2】...</td>
+    <td><b>議題：</b>（探究遭遇之挫折與失敗事件）<br><b>團討：</b>大家一起除錯！結構失敗或衝突怎麼解？</td>
+    <td>（列出各學習區第4個月鷹架除錯與改良任務卡）</td>
+    <td>【素養4：推理賞析】...<br>【素養6：自主管理】...</td>
+  </tr>
+  <tr>
+    <td><b>第 5 個月</b><br>【發展期四】</td>
+    <td><b>【2-3/2-4 整合共構】</b><br>【社-中-2-3-2】...<br>【美-中-2-2-1】...</td>
+    <td><b>議題：</b>（問題突破後的成果共創）<br><b>團討：</b>班級大型主題情境試營運與社群回饋。</td>
+    <td>（列出各學習區第5個月大型共創與微型展覽任務卡）</td>
+    <td>【素養3：關懷合作】...<br>【素養5：想像創造】...</td>
+  </tr>
+  <tr>
+    <td><b>第 6 個月</b><br>【結束統整】</td>
+    <td><b>【3-1 賞析反思】</b><br>【認-中-3-1-1】...<br>【美-中-3-1-1】...</td>
+    <td><b>議題：</b>我們的探究足跡回顧展<br><b>團討：</b>我學會了什麼？如何向全園導覽發表？</td>
+    <td>
+      • <b>策展任務：</b>小導覽員向家長/鄰班發表任務。<br>
+      • <b>反思任務：</b>個人學習歷程小書整理。<br>
+      • <b>交接任務：</b>學習區材料大清點與保養。
+    </td>
+    <td>【素養2：表達溝通】...<br>【素養4：推理賞析】...</td>
+  </tr>
+</table>
 
-四、 六個月「指標階梯延伸 × 連貫性議題 × 學習區具體任務」詳部推演表：
-
-     【第 1 個月：準備月 —— 環境熟悉、常規建立與起點任務】
-       * 本月聚焦指標階梯：主要扣合【1-1】基礎覺察指標（如：身-中-1-1-1、認-中-1-1-1、社-中-1-1-1）
-       * 具體指標代碼與完整條文：
-       * 連貫生活議題：
-       * 學習區任務卡設計（偏向基礎操作與規則建立，如美勞區安全工具任務、積木區分類任務）：
-       * 核心素養具體展現：
-
-     【第 2 個月：主要發展期（一）—— 議題萌發、深入觀察與起步任務】
-       * 本月指標階梯推進：往下延伸至【1-2】特徵觀察與關係探究指標（如：認-中-1-2-1、語-中-1-2-2）
-       * 具體指標代碼與完整條文：
-       * 承接第1月之連貫議題：
-       * 團討核心提問：
-       * 學習區任務卡設計（任務難度提升：要求幼兒觀察比較、收集材料、繪製設計圖或初階模型）：
-       * 核心素養具體展現：
-
-     【第 3 個月：主要發展期（二）—— 技能操作、跨區連動與實驗任務】
-       * 本月指標階梯推進：往下延伸至【2-1】工具運用與多元表徵指標（如：認-中-2-1-2、美-中-2-1-1、語-中-2-1-1）
-       * 具體指標代碼與完整條文：
-       * 承接第2月之連貫議題：
-       * 團討核心提問：
-       * 學習區任務卡設計（強調「跨區合作與材料借用」：語文區查書求證、美勞與建構區結合複合媒材）：
-       * 核心素養具體展現：
-
-     【第 4 個月：主要發展期（三）—— 遭遇失敗、策略修正與鷹架除錯任務】
-       * 本月指標階梯推進：往下深化至【2-2 / 2-3】協商解決問題與計畫修正指標（如：認-中-2-3-1、社-中-2-2-2、情-中-2-1-1）
-       * 具體指標代碼與完整條文：
-       * 遭遇之真實挫折與挑戰情境（如結構倒塌、同儕爭執、材料不如預期）：
-       * 教師鷹架介入策略：
-       * 學習區任務卡設計（除錯任務卡：測試不同結構支撐點、修正規則分工）：
-       * 核心素養具體展現：
-
-     【第 5 個月：主要發展期（四）—— 整合共創、情境營運與社群回饋任務】
-       * 本月指標階梯推進：進階至【2-3 / 2-4】大型合作表徵與社會互動指標（如：社-中-2-3-2、美-中-2-2-1、語-中-2-4-1）
-       * 具體指標代碼與完整條文：
-       * 承接第4月問題解決之成果：
-       * 學習區任務卡設計（全班跨區共構大型主題情境、試營運、邀請鄰班幼兒體驗）：
-       * 核心素養具體展現：
-
-     【第 6 個月：結束統整月 —— 主題回顧展、歷程評析與發表任務】
-       * 本月指標階梯推進：躍升至【3-1】賞析、歷程反思與評價指標（如：美-中-3-1-1、認-中-3-1-1、社-中-3-1-1）
-       * 具體指標代碼與完整條文：
-       * 本月核心統整行動：
-       * 學習區任務卡設計（小策展人任務、向家長導覽、個人歷程反思、學習區工具物資大盤點整理）：
-       * 核心素養具體展現：
-
-五、 各學習區長期材料梯度配置與教師引導提問鷹架金句表（美勞區、建構區、語文區等材料如何配合 1-1 至 3-1 的指標難度進行梯度升級）。
+<h2>表四、學習區梯度材料配置與教師鷹架提問表</h2>
+<table>
+  <tr>
+    <th style="width: 20%;">學習區名稱</th>
+    <th style="width: 40%;">材料投放梯度進階配置 (1-1 ➔ 3-1)</th>
+    <th style="width: 40%;">教師引導性提問鷹架金句</th>
+  </tr>
+  <tr>
+    <td>建構區 / 積木區</td>
+    <td>初階基礎單位積木 ➔ 加入鬆散自然素材、斜坡軌道 ➔ 結構連接固定五金與卡榫材料</td>
+    <td>「如果想搭得更高更穩，下面支撐點要怎麼排？」「這塊板子放上去倒了，可以換哪種材料試試？」</td>
+  </tr>
+  <tr>
+    <td>美勞區 / 鬆散素材</td>
+    <td>初階紙筆剪貼 ➔ 複合回收媒材、不同黏著劑實驗 ➔ 複合媒材大型立體塑型材料</td>
+    <td>「這兩種材料黏不起來，我們可以用什麼工具固定它？」「色彩怎麼搭配才能呈現你觀察到的樣子？」</td>
+  </tr>
+  <tr>
+    <td>語文區 / 扮演區</td>
+    <td>主題繪本與基礎圖卡 ➔ 調查紀錄表、測量工具、標籤機 ➔ 展覽導覽圖卡、宣傳海報與解說牌製作</td>
+    <td>「你想怎麼把我們發現的秘密記錄下來讓別人看懂？」「導覽的時候你要先介紹哪一個作品？」</td>
+  </tr>
+</table>
 `;
-      callGemini(prompt, 'btn-plan', 'res-plan-box', 'res-plan-text');
+      callGeminiHTML(prompt, 'btn-plan', 'res-plan-box', 'res-plan-text');
     }
 
+    // 模組 2：行為觀察紀錄
     function runObs() {
       const child = document.getElementById('o-child').value;
       const corner = document.getElementById('o-corner').value;
       const raw = document.getElementById('o-raw').value;
 
       const prompt = `
-你是一位具備幼兒觀察評量專業的教保輔導員。請將以下隨手觀察筆記，改寫為符合台灣教保課程評量標準的「專業客觀行為觀察紀錄」：
+你是一位具備幼兒觀察評量專業的教保輔導員。請將以下觀察速記，改寫為**正式表格樣式**的專業客觀觀察分析表。
+指標代碼（如【認-中-2-1-1】）與素養標識數字（如【素養1：覺知辨識】）**必須嚴格置於各項文字最前端**。
 
-【基本資料】幼兒：${child} / 觀察情境：${corner}
-【原始速記】：${raw}
+幼兒代稱：${child}
+觀察學習區：${corner}
+原始記錄：${raw}
 
-【請輸出以下專業結構】：
-一、 客觀行為描述（去主觀評價、客觀完整記錄人事時地物、材料操作與語言互動對話）
-二、 扣合之六大核心素養詮釋：
-     明確分析幼兒在此行為中展現了哪一項核心素養（例如：推理賞析、自主管理、關懷合作等），並說明其質性意義。
-三、 扣合之課綱領域能力指標（格式規範）：
-     - 領域與指標編碼（例如：認-中-2-2-1）
-     - 指標完整文字內容
-     - 具體對應行為佐證說明
-四、 幼兒發展現況深入分析（認知運思、情緒調節、精細/粗大動作、同儕互動）
-五、 教師後續個別化鷹架支持策略（物理環境材料調整、引導性提問引導策略、學習區任務延伸）
+請輸出以下 HTML 表格：
+<h1>幼兒學習區行為觀察紀錄與分析表</h1>
+<table>
+  <tr>
+    <th style="width: 20%;">幼兒代稱</th>
+    <td style="width: 30%;">${child}</td>
+    <th style="width: 20%;">觀察情境/學習區</th>
+    <td style="width: 30%;">${corner}</td>
+  </tr>
+  <tr>
+    <th>客觀行為記錄<br>(人事時地物完整敘事)</th>
+    <td colspan="3">以客觀客觀無主觀批判之敘事體呈現幼兒的材料操作過程與語言對話。</td>
+  </tr>
+  <tr>
+    <th>對應課綱領域指標<br>(代碼嚴格置前)</th>
+    <td colspan="3">
+      例：<br>
+      • <b>【認-中-X-X-X】</b>完整指標條文內容與佐證行為說明。<br>
+      • <b>【社-中-X-X-X】</b>完整指標條文內容與佐證行為說明。
+    </td>
+  </tr>
+  <tr>
+    <th>展現之核心素養<br>(標識數字置前)</th>
+    <td colspan="3">
+      例：<br>
+      • <b>【素養X：素養名稱】</b>具體行為質性詮釋說明。
+    </td>
+  </tr>
+  <tr>
+    <th>幼兒發展意義詮釋</th>
+    <td colspan="3">針對認知運思、情緒調節、小肌肉精細動作與社會互動進行深入分析。</td>
+  </tr>
+  <tr>
+    <th>後續教師支持鷹架<br>(環境、材料與提問)</th>
+    <td colspan="3">
+      • <b>物理環境/材料調整：</b>...<br>
+      • <b>師生互動提問策略：</b>...<br>
+      • <b>學習區任務延伸：</b>...
+    </td>
+  </tr>
+</table>
 `;
-      callGemini(prompt, 'btn-obs', 'res-obs-box', 'res-obs-text');
+      callGeminiHTML(prompt, 'btn-obs', 'res-obs-box', 'res-obs-text');
     }
 
+    // 模組 3：學期評語
     function runComment() {
       const child = document.getElementById('c-child').value;
       const style = document.getElementById('c-style').value;
       const highlight = document.getElementById('c-highlight').value;
 
       const prompt = `
-請為幼兒園教保員撰寫期末給家長的綜合評語，必須融入台灣幼兒園課綱六大領域發展現況：
-【對象】：${child}
-【呈現架構】：${style}
-【學期表現重點與成長亮點】：${highlight}
+請為幼兒園教保員撰寫期末給家長的綜合評語，以**正式表格化**呈現，素養標識數字置於前：
+幼兒：${child}
+風格：${style}
+學期表現亮點：${highlight}
 
-【撰寫規範】：
-1. 語氣溫暖有溫度，展現對孩子的細微看見，肯定其在「六大核心素養」（如自主管理、表達溝通、關懷合作等）上的具體進步。
-2. 清楚帶出孩子在各領域的發展亮點（身心動作健康、認知探究、語文表達、社會人際、情緒覺察調節、美感創作）。
-3. 提供 2 到 3 種不同篇幅（精煉版、完整版）的建議，兼顧教育專業性與親師合作的溫暖期許。
+請輸出包含【精簡版】與【詳細版】的正式 HTML 表格，肯定幼兒在【素養1：覺知辨識】至【素養6：自主管理】與六大領域的具體成長。
 `;
-      callGemini(prompt, 'btn-comment', 'res-comment-box', 'res-comment-text');
+      callGeminiHTML(prompt, 'btn-comment', 'res-comment-box', 'res-comment-text');
     }
 
+    // 模組 4：特教 IEP
     function runIep() {
       const child = document.getElementById('i-child').value;
       const type = document.getElementById('i-type').value;
       const status = document.getElementById('i-status').value;
 
       const prompt = `
-你是一位幼兒特殊教育專業輔導教師。請針對以下幼兒現況，擬定符合台灣幼兒園教保課綱規範之學期個別化教育計畫（IEP）輔助草案：
-【幼兒對象】：${child}
-【需求特質/特教類別】：${type}
-【能力現況與挑戰】：${status}
+請為幼兒【${child}】（特教類別：${type}，現況：${status}）產出一份**正式制定表格**之個別化教育計畫（IEP）草案。
+指標代碼（如【社-小-1-2-1】）與核心素養數字（如【素養6：自主管理】）**一律置於各項目文字最前端**。
 
-【輸出結構要求】：
-一、 學期長程目標（依領域分項：如認知、語言、社會情緒、生活自理與動作，並標註扣合之核心素養）
-二、 短程目標（符合 SMART 原則，具備具體起點行為、評量條件與通過標準），且「每一條短程目標下方，必須嚴謹標註所對應之幼兒園課綱領域能力指標編碼與完整名稱（例如：社-小-1-2-1 覺察自己的情緒）」。
-三、 普通班環境與教學調整具體策略（作息轉換提示、學習區材料分級調整、視覺提示策略、同儕小天使配對支持）。
-四、 親師合作與家庭延伸支持策略。
+請輸出包含「學期長程目標表」、「短程目標與課綱指標對照表（符合SMART原則）」、「普通班融合教學與環境調整表」的完整 HTML 表格。
 `;
-      callGemini(prompt, 'btn-iep', 'res-iep-box', 'res-iep-text');
+      callGeminiHTML(prompt, 'btn-iep', 'res-iep-box', 'res-iep-text');
     }
   </script>
 </body>
