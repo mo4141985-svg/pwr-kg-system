@@ -140,10 +140,7 @@
       font-size: 0.92rem;
     }
 
-    /* 介面區塊 */
-    .tab-content {
-      width: 100%;
-    }
+    .tab-content { width: 100%; }
 
     .module-header { margin-bottom: 20px; border-bottom: 1.5px solid var(--border); padding-bottom: 10px; }
     .module-header h2 { color: var(--primary); font-size: 1.3rem; }
@@ -158,7 +155,7 @@
     textarea { resize: vertical; min-height: 90px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-    /* 核心素養勾選外觀 */
+    /* 六大核心素養多選框樣式 */
     .competency-badges {
       display: flex;
       flex-wrap: wrap;
@@ -195,7 +192,7 @@
     }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
 
-    /* 結果呈現與匯出區塊 */
+    /* 生成成果展示區塊 */
     .result-box {
       margin-top: 24px;
       padding: 20px;
@@ -272,7 +269,7 @@
       <div class="sidebar-card">
         <div class="sidebar-title">功能模組選單</div>
         <button type="button" class="menu-item active" id="btn-tab-plan" onclick="switchSidebarTab('plan', this)">
-          <span>🎨 1. 課綱與核心素養課程發展</span>
+          <span>🎨 1. 階層化指標與任務課程發展</span>
         </button>
         <button type="button" class="menu-item" id="btn-tab-obs" onclick="switchSidebarTab('obs', this)">
           <span>📝 2. 課綱指標觀察紀錄改寫</span>
@@ -286,9 +283,9 @@
       </div>
 
       <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
-        <strong style="color: var(--primary);">💡 課綱扣合指引：</strong><br>
+        <strong style="color: var(--primary);">💡 指標遞進階梯指引：</strong><br>
         <div id="dynamic-guide">
-          系統將嚴謹對照《幼兒園教保活動課程大綱》，標註完整六大領域指標編碼（身、認、語、社、情、美）與對應之六大核心素養。
+          系統將學習區任務嚴格依照課綱指標「1-1 ➔ 1-2 ➔ 2-1 ➔ 2-2 ➔ 2-3 ➔ 3-1」階層式向下延伸推進，每月任務難度層層遞增。
         </div>
       </div>
     </aside>
@@ -301,11 +298,11 @@
         <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
       </div>
 
-      <!-- ==================== 【介面 1：課綱與素養課程】 ==================== -->
+      <!-- ==================== 【介面 1：階層化指標與任務課程發展】 ==================== -->
       <div id="tab-plan" class="tab-content" style="display: block;">
         <div class="module-header">
-          <h2>🎨 課綱指標與核心素養結合課程發展（一學期六個月）</h2>
-          <p>緊密對扣教育部幼兒園課程大綱六大領域指標與六大核心素養，輸出完整課程脈絡</p>
+          <h2>🎨 階層化指標延伸 × 1+4+1 任務導向連續性課程發展</h2>
+          <p>第1月準備(1-1) ➔ 第2-5月連貫議題與指標難度階層遞進(1-2➔2-1➔2-2➔2-3) ➔ 第6月統整評析(3-1)</p>
         </div>
         <form onsubmit="event.preventDefault(); runPlan();">
           <div class="grid">
@@ -350,17 +347,19 @@
             <label>班級規劃設置之學習區（已全面更新為建構區）</label>
             <input type="text" id="p-corners" value="美勞區、建構區、積木區、語文區、扮演區、鬆散素材區" required>
           </div>
+
           <div class="form-group">
-            <label>生活日常容易引發之討論議題構想 / 在地經驗（選填）</label>
-            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢等生活事件"></textarea>
+            <label>生活議題萌芽觸媒 / 初始生活經驗（牽引六個月連續探究與任務遞進的核心事件）</label>
+            <textarea id="p-highlight" placeholder="例如：在園所角落發現落葉被清潔隊掃走，引發『落葉去哪裡』的討論；下雨天戶外積水帶動水流與排水探究；在菜市場看見各種食材引發的採買與分類探究..."></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「扣合課綱與核心素養課程計畫」Word (.doc)</button>
+
+          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「指標階層延伸 × 任務導向學期計畫」Word (.doc)</button>
         </form>
 
         <div id="res-plan-box" class="result-box">
           <div class="result-header">
-            <span class="result-title">✨ 課綱與核心素養課程規劃成果</span>
-            <button class="btn-export" onclick="exportWord('res-plan-text', '學期課綱課程發展計畫')">📥 匯出 Word 檔 (.doc)</button>
+            <span class="result-title">✨ 指標階層延伸與任務課程成果</span>
+            <button class="btn-export" onclick="exportWord('res-plan-text', '六個月階層化指標課程計畫')">📥 匯出 Word 檔 (.doc)</button>
           </div>
           <div id="res-plan-text" class="result-area"></div>
         </div>
@@ -478,21 +477,18 @@
 
   <script>
     const guides = {
-      plan: '系統自動將一學期六個月脈絡與「六大核心素養」及「課綱領域指標代號（身、認、語、社、情、美）」精準勾稽，產出可直接送審之教案。',
+      plan: '系統將學習區任務嚴格依照課綱指標「1-1 ➔ 1-2 ➔ 2-1 ➔ 2-2 ➔ 2-3 ➔ 3-1」階層式向下延伸推進，每月任務難度層層遞增。',
       obs: '輸入日常質性速記，自動轉為客觀敘事，並嚴格標註符合該年段之課綱領域能力指標代號（如認-中-2-1-1）與核心素養詮釋。',
       comment: '融貫課綱六大領域發展現況，展現幼兒在學習區探究時的核心素養亮點，產出具專業度與溫暖情感的評語。',
       iep: '每項長短程目標均明確標註所對扣之幼兒園課綱領域指標代號，並提供普通班融合環境調整具體策略。'
     };
 
-    // 核心切換邏輯：直接強制控制 style.display，絕不受 CSS 衝突影響
     function switchSidebarTab(tabName, clickedBtn) {
-      // 1. 切換按鈕高亮
       document.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
       if (clickedBtn) {
         clickedBtn.classList.add('active');
       }
 
-      // 2. 切換四個介面
       const allTabs = ['plan', 'obs', 'comment', 'iep'];
       allTabs.forEach(id => {
         const panel = document.getElementById('tab-' + id);
@@ -501,14 +497,12 @@
         }
       });
 
-      // 3. 更新指引文字
       const guideBox = document.getElementById('dynamic-guide');
       if (guideBox && guides[tabName]) {
         guideBox.innerText = guides[tabName];
       }
     }
 
-    // 本地記錄 API Key
     const apiKeyInput = document.getElementById('apiKeyInput');
     if (apiKeyInput) {
       apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
@@ -527,7 +521,6 @@
       return key;
     }
 
-    // 呼叫 Gemini 介面（已配置最新模型 gemini-3.8-flash）
     async function callGemini(prompt, btnId, boxId, textId) {
       const apiKey = getApiKey();
       if (!apiKey) return;
@@ -535,7 +528,7 @@
       const btn = document.getElementById(btnId);
       const originalText = btn.innerText;
       btn.disabled = true;
-      btn.innerText = '⏳ 系統正比對教保課綱指標與核心素養生成中...';
+      btn.innerText = '⏳ 系統正運算指標階層遞進與任務深層架構中...';
 
       const box = document.getElementById(boxId);
       const textElem = document.getElementById(textId);
@@ -560,7 +553,7 @@
           box.classList.add('show');
           box.scrollIntoView({ behavior: 'smooth' });
         } else {
-          throw new Error('未取得生成結果，請檢查 API Key 或網路連線。');
+          throw new Error('未取得生成結果，請檢查 API Key 或稍後重試。');
         }
       } catch (err) {
         alert('生成失敗：' + err.message);
@@ -570,7 +563,6 @@
       }
     }
 
-    // 匯出 Word 檔 (.doc)
     function exportWord(textElemId, filenamePrefix) {
       const content = document.getElementById(textElemId).innerText;
       if (!content) {
@@ -603,7 +595,7 @@
       URL.revokeObjectURL(url);
     }
 
-    // 模組 1：課綱與素養課程
+    // 模組 1：階層化指標延伸 × 1+4+1 任務課程發展
     function runPlan() {
       const school = document.getElementById('p-school').value;
       const target = document.getElementById('p-target').value;
@@ -616,39 +608,88 @@
                                .map(cb => cb.value).join('、');
 
       const prompt = `
-你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園教學輔導的專家督導。請為【${school}】的【${target}】設計一份嚴格扣合「課綱領域能力指標」與「六大核心素養」的一學期六個月課程發展脈絡計畫。
+你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園教學輔導的專家督導。請為【${school}】的【${target}】設計一份**「指標階梯延伸 × 1+4+1 任務導向連續性課程發展計畫」**。
 
-【課程背景】
+【課程基本條件】
+- 園所班級：${school} ${target}
 - 主題名稱：${theme}
 - 任教教保員：${teacher}
-- 班級學習區：${corners}
-- 本學期重點核心素養：${checkedComp || '六大核心素養全員融入'}
-- 生活生活經驗/在地議題：${highlight || '由生活周遭日常發現引導探究'}
+- 班級學習區配置：${corners}
+- 聚焦核心素養：${checkedComp || '六大核心素養全員融入'}
+- 探究議題萌芽起點：${highlight || '由生活周遭日常發現引導探究'}
 
-【撰寫結構要求（必須嚴格條列課綱代碼與素養）】：
-一、 課程設計理念（說明如何由幼兒生活議題出發，結合探究式學習區並落實核心素養）
-二、 六大核心素養對應落實表：
-     請針對所選核心素養（覺知辨識、表達溝通、關懷合作、推理賞析、想像創造、自主管理），逐一說明本學期幼兒具體的行為表現與落實情境。
-三、 扣合之課綱領域能力指標矩陣（必須包含：領域名稱、指標編碼如「認-中-1-1-1」、指標全文、年段對應）：
-     - 身體動作與健康領域
-     - 認知領域
-     - 語文領域
-     - 社會領域
-     - 情緒領域
-     - 美感領域
-四、 學期六個月推進脈絡與學習區任務對照表：
-     - 第 1 個月：開學常規建立、環境探索與學習區導入（註明扣合指標）
-     - 第 2 個月：生活議題萌發、問題提出與初步表徵（註明扣合指標）
-     - 第 3 個月：深入探索與材料實驗、跨區互動（註明扣合指標）
-     - 第 4 個月：遭遇挑戰、同儕合作解決與建構深化（註明扣合指標）
-     - 第 5 個月：探究成果雛形形成、社群分享與修正（註明扣合指標）
-     - 第 6 個月：主題統整回顧展、學習歷程反思與發表（註明扣合指標）
-五、 各學習區（美勞區、建構區、積木區、語文區等）之材料投放、挑戰任務與教師鷹架提問策略
+==================================================
+【最核心教學設計規範：課綱指標與學習區任務的階層式遞進（指標階梯）】
+教學實務上，學習區任務規劃必須「搭配指標進行階層式延伸與難度累進」：
+- 第 1 個月：主要聚焦於「1-1」類型的基礎覺知指標（覺察材料特性、常規與環境）。
+- 第 2 個月：往下延伸至「1-2」類型的探索觀察指標（觀察特徵、比較異同、記錄因果）。
+- 第 3 個月：跨入「2-1」類型的操作應用指標（運用工具技法、跨區材料借用、進行實驗）。
+- 第 4 個月：深化至「2-2 / 2-3」類型的問題解決指標（面對挫折、調整策略、同儕協商除錯）。
+- 第 5 個月：進階至「2-3 / 2-4」類型的整合共構指標（班級共同大型表徵、情境試營運、社群分享）。
+- 第 6 個月：躍升至「3-1」高階的賞析反思與發表指標（歷程回顧評析、小策展人導覽發表）。
+
+請產出以下結構嚴謹的完整教案：
+
+一、 課程總體設計理念與「指標階梯 × 任務導向探究螺旋」架構說明：
+     說明主題如何從生活經驗出發，如何透過任務卡帶動學習區，並說明指標代號如何由 1-1 循序向下延伸至 2-X 與 3-1，展現難度漸進的邏輯。
+
+二、 六大核心素養深耕對照表：
+     條列幼兒在生活與探究情境中，具體的行為表現與落實方式（覺知辨識、表達溝通、關懷合作、推理賞析、想像創造、自主管理）。
+
+三、 全學期課綱領域能力指標階梯總覽（條列身體動作、認知、語文、社會、情緒、美感領域在本主題中從 1-1、1-2、2-1、2-2 到 3-1 的完整階梯式指標條文矩陣）。
+
+四、 六個月「指標階梯延伸 × 連貫性議題 × 學習區具體任務」詳部推演表：
+
+     【第 1 個月：準備月 —— 環境熟悉、常規建立與起點任務】
+       * 本月聚焦指標階梯：主要扣合【1-1】基礎覺察指標（如：身-中-1-1-1、認-中-1-1-1、社-中-1-1-1）
+       * 具體指標代碼與完整條文：
+       * 連貫生活議題：
+       * 學習區任務卡設計（偏向基礎操作與規則建立，如美勞區安全工具任務、積木區分類任務）：
+       * 核心素養具體展現：
+
+     【第 2 個月：主要發展期（一）—— 議題萌發、深入觀察與起步任務】
+       * 本月指標階梯推進：往下延伸至【1-2】特徵觀察與關係探究指標（如：認-中-1-2-1、語-中-1-2-2）
+       * 具體指標代碼與完整條文：
+       * 承接第1月之連貫議題：
+       * 團討核心提問：
+       * 學習區任務卡設計（任務難度提升：要求幼兒觀察比較、收集材料、繪製設計圖或初階模型）：
+       * 核心素養具體展現：
+
+     【第 3 個月：主要發展期（二）—— 技能操作、跨區連動與實驗任務】
+       * 本月指標階梯推進：往下延伸至【2-1】工具運用與多元表徵指標（如：認-中-2-1-2、美-中-2-1-1、語-中-2-1-1）
+       * 具體指標代碼與完整條文：
+       * 承接第2月之連貫議題：
+       * 團討核心提問：
+       * 學習區任務卡設計（強調「跨區合作與材料借用」：語文區查書求證、美勞與建構區結合複合媒材）：
+       * 核心素養具體展現：
+
+     【第 4 個月：主要發展期（三）—— 遭遇失敗、策略修正與鷹架除錯任務】
+       * 本月指標階梯推進：往下深化至【2-2 / 2-3】協商解決問題與計畫修正指標（如：認-中-2-3-1、社-中-2-2-2、情-中-2-1-1）
+       * 具體指標代碼與完整條文：
+       * 遭遇之真實挫折與挑戰情境（如結構倒塌、同儕爭執、材料不如預期）：
+       * 教師鷹架介入策略：
+       * 學習區任務卡設計（除錯任務卡：測試不同結構支撐點、修正規則分工）：
+       * 核心素養具體展現：
+
+     【第 5 個月：主要發展期（四）—— 整合共創、情境營運與社群回饋任務】
+       * 本月指標階梯推進：進階至【2-3 / 2-4】大型合作表徵與社會互動指標（如：社-中-2-3-2、美-中-2-2-1、語-中-2-4-1）
+       * 具體指標代碼與完整條文：
+       * 承接第4月問題解決之成果：
+       * 學習區任務卡設計（全班跨區共構大型主題情境、試營運、邀請鄰班幼兒體驗）：
+       * 核心素養具體展現：
+
+     【第 6 個月：結束統整月 —— 主題回顧展、歷程評析與發表任務】
+       * 本月指標階梯推進：躍升至【3-1】賞析、歷程反思與評價指標（如：美-中-3-1-1、認-中-3-1-1、社-中-3-1-1）
+       * 具體指標代碼與完整條文：
+       * 本月核心統整行動：
+       * 學習區任務卡設計（小策展人任務、向家長導覽、個人歷程反思、學習區工具物資大盤點整理）：
+       * 核心素養具體展現：
+
+五、 各學習區長期材料梯度配置與教師引導提問鷹架金句表（美勞區、建構區、語文區等材料如何配合 1-1 至 3-1 的指標難度進行梯度升級）。
 `;
       callGemini(prompt, 'btn-plan', 'res-plan-box', 'res-plan-text');
     }
 
-    // 模組 2：行為觀察紀錄
     function runObs() {
       const child = document.getElementById('o-child').value;
       const corner = document.getElementById('o-corner').value;
@@ -674,7 +715,6 @@
       callGemini(prompt, 'btn-obs', 'res-obs-box', 'res-obs-text');
     }
 
-    // 模組 3：學期評語
     function runComment() {
       const child = document.getElementById('c-child').value;
       const style = document.getElementById('c-style').value;
@@ -694,7 +734,6 @@
       callGemini(prompt, 'btn-comment', 'res-comment-box', 'res-comment-text');
     }
 
-    // 模組 4：特教 IEP
     function runIep() {
       const child = document.getElementById('i-child').value;
       const type = document.getElementById('i-type').value;
