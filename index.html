@@ -172,122 +172,20 @@
     }
     .btn:hover { opacity: 0.95; }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
-    
-    footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
 
-    @media (max-width: 768px) {
-      header { padding: 12px 14px; }
-      .brand-wrap { gap: 8px; width: 100%; justify-content: center; }
-      .logo-badge { padding: 6px 12px; }
-      .brand-text { font-size: 0.98rem; }
-      .icon-ribbon, .icon-elephant { width: 28px; height: 28px; font-size: 16px; }
-      .system-title { font-size: 1.05rem; text-align: center; width: 100%; margin-top: 4px; }
-
-      .app-layout { flex-direction: column; padding: 12px; gap: 12px; }
-      .sidebar { width: 100%; }
-      .sidebar-title { display: none; }
-      .sidebar .menu-item {
-        display: inline-flex;
-        width: auto;
-        padding: 9px 12px;
-        font-size: 0.88rem;
-        margin-bottom: 0;
-      }
-      .sidebar-card:first-child {
-        display: flex;
-        overflow-x: auto;
-        white-space: nowrap;
-        gap: 6px;
-        padding: 8px;
-      }
-      .sidebar-card:last-child { padding: 10px 14px; }
-      .main-panel { padding: 16px; border-radius: 10px; }
-      .grid { grid-template-columns: 1fr; gap: 10px; }
-      .btn { padding: 13px; font-size: 1rem; }
+    /* 結果輸出與匯出區塊 */
+    .result-container {
+      margin-top: 24px;
+      padding: 20px;
+      background: #FDF9FB;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: none;
     }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="brand-wrap">
-      <div class="logo-badge">
-        <span class="icon-ribbon">🎗️</span>
-        <span class="brand-text">彭婉如文教基金會</span>
-      </div>
-      <div class="logo-badge">
-        <span class="icon-elephant">🐘</span>
-        <span class="brand-text">台灣公共托育協會</span>
-      </div>
-    </div>
-    <div class="system-title">幼兒園專業教保管理輔助系統</div>
-  </header>
-
-  <div class="app-layout">
-    
-    <aside class="sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-title">功能模組選單</div>
-        <button class="menu-item active" onclick="switchSidebarTab('plan', this)">
-          <span>🎨 1. 議題與學習區結合課程發展</span>
-        </button>
-        <button class="menu-item" onclick="switchSidebarTab('obs', this)">
-          <span>📝 2. 行為觀察紀錄改寫</span>
-        </button>
-        <button class="menu-item" onclick="switchSidebarTab('comment', this)">
-          <span>🌸 3. 學期期末評語</span>
-        </button>
-        <button class="menu-item" onclick="switchSidebarTab('iep', this)">
-          <span>🌱 4. 特教 IEP 草案</span>
-        </button>
-      </div>
-
-      <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
-        <strong style="color: var(--primary);">💡 操作指引：</strong><br>
-        <div id="dynamic-guide">
-          輸入學期主題與班級，系統自動推演出涵蓋第 1 個月開學準備、第 2-5 個月日常議題探究延伸學習區、第 6 個月教學結束回顧展共六個月之完整課程脈絡 Word 檔。
-        </div>
-      </div>
-    </aside>
-
-    <main class="main-panel">
-      
-      <div class="key-box">
-        <label>🔑 Google Gemini API Key（系統自動儲存於瀏覽器，免重複輸入）</label>
-        <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
-      </div>
-
-      <!-- 模組 1：議題與學習區結合課程發展 -->
-      <div id="tab-plan" class="tab-content active">
-        <div class="module-header">
-          <h2>🎨 議題與學習區結合課程發展（一學期六個月脈絡）</h2>
-          <p>第 1 個月開學準備 ➔ 第 2-5 個月生活議題探究轉化為學習區任務 ➔ 第 6 個月教學結束回顧統整</p>
-        </div>
-        <form onsubmit="event.preventDefault(); runPlan();">
-          <div class="grid">
-            <div class="form-group">
-              <label>園所全銜</label>
-              <input type="text" id="p-school" value="非營利幼兒園" required>
-            </div>
-            <div class="form-group">
-              <label>任教班級與年段</label>
-              <select id="p-target">
-                <option value="小班（3-4歲）">小班（3-4歲）</option>
-                <option value="中班（4-5歲）" selected>中班（4-5歲）</option>
-                <option value="大班（5-6歲）">大班（5-6歲）</option>
-                <option value="混齡班">混齡班</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid">
-            <div class="form-group">
-              <label>學期主軸主題名稱</label>
-              <input type="text" id="p-theme" value="我們的社區生活與自然好朋友" placeholder="例如：生活探險家、大地的禮物" required>
-            </div>
-            <div class="form-group">
-              <label>任課教保員</label>
-              <input type="text" id="p-teacher" value="陳老師、林老師" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>班級規劃設置之學習區（已全面更新為建構區）</label>
+    .result-container.show { display: block; }
+    .result-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-hover);
+      margin-bottom: 10px;
+      display: flex;
