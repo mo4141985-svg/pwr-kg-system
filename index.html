@@ -21,7 +21,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; }
     body { background-color: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
     
-    /* 頂部品牌 Header */
     header {
       background: #FFFFFF;
       border-bottom: 2px solid var(--border);
@@ -59,18 +58,16 @@
     .brand-text { font-size: 1.12rem; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
     .system-title { font-size: 1.2rem; font-weight: 900; color: var(--primary-hover); letter-spacing: 0.5px; }
 
-    /* 版面結構 */
     .app-layout {
       display: flex;
       flex: 1;
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 22px;
+      padding: 24px;
       gap: 22px;
     }
     
-    /* 側邊欄 */
     .sidebar {
       width: var(--sidebar-width);
       flex-shrink: 0;
@@ -86,95 +83,46 @@
       box-shadow: 0 3px 10px rgba(142, 59, 104, 0.04);
     }
     .sidebar-title {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
       padding-left: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
-    
-    /* 選單按鈕通用樣式 */
     .menu-item {
       display: flex;
       align-items: center;
       gap: 10px;
       width: 100%;
-      padding: 13px 14px;
-      margin-bottom: 8px;
-      border: 1.5px solid transparent;
-      background: #FFFDFE;
+      padding: 12px 14px;
+      margin-bottom: 6px;
+      border: none;
+      background: transparent;
       color: var(--text);
       font-size: 0.95rem;
       font-weight: 600;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       text-align: left;
       transition: all 0.2s ease;
     }
-    .menu-item:hover {
-      background: var(--primary-light);
-      color: var(--primary);
-      border-color: #E6D0DD;
-    }
+    .menu-item:hover { background: var(--primary-light); color: var(--primary); }
     .menu-item.active {
-      background: var(--primary) !important;
-      color: #FFFFFF !important;
-      border-color: var(--primary-hover) !important;
-      box-shadow: 0 4px 12px rgba(142, 59, 104, 0.28);
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 3px 8px rgba(142, 59, 104, 0.25);
     }
 
-    /* 主操作區塊 */
     .main-panel {
       flex: 1;
       min-width: 0;
       background: var(--card-bg);
       border-radius: 14px;
       border: 1px solid var(--border);
-      padding: 24px 28px;
+      padding: 28px;
       box-shadow: 0 4px 16px rgba(142, 59, 104, 0.05);
     }
 
-    /* 頂部顯眼大頁籤導覽列（保證永不消失） */
-    .top-nav-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 22px;
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--border);
-    }
-    .top-nav-btn {
-      padding: 12px 10px;
-      border: 1.5px solid var(--border);
-      background: #FFF9FC;
-      border-radius: 10px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .top-nav-btn:hover {
-      background: var(--primary-light);
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-    .top-nav-btn.active {
-      background: var(--primary) !important;
-      color: #FFFFFF !important;
-      border-color: var(--primary) !important;
-      box-shadow: 0 3px 8px rgba(142, 59, 104, 0.25);
-    }
-
-    /* API Key 區塊 */
     .key-box {
       background: linear-gradient(135deg, #FFF6F9 0%, #F9EDF3 100%);
       border: 1.5px dashed var(--primary);
@@ -192,10 +140,8 @@
       font-size: 0.92rem;
     }
 
-    /* 分頁內容區 */
-    .tab-content {
-      display: none;
-    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     .module-header { margin-bottom: 20px; border-bottom: 1.5px solid var(--border); padding-bottom: 10px; }
     .module-header h2 { color: var(--primary); font-size: 1.3rem; }
@@ -210,6 +156,28 @@
     textarea { resize: vertical; min-height: 90px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
+    /* 核心素養選擇標籤樣式 */
+    .competency-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .badge-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FAF2F6;
+      border: 1px solid #E3C8D7;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.86rem;
+      cursor: pointer;
+      color: #553344;
+      font-weight: 600;
+    }
+    .badge-check input { cursor: pointer; }
+
     .btn {
       width: 100%;
       background: linear-gradient(135deg, var(--primary) 0%, #A34879 100%);
@@ -220,15 +188,13 @@
       font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 14px;
       box-shadow: 0 4px 10px rgba(142, 59, 104, 0.2);
-      transition: opacity 0.2s;
     }
-    .btn:hover { opacity: 0.95; }
     .btn:disabled { background: #B3A4AC; cursor: not-allowed; box-shadow: none; }
 
-    /* 生成成果展示區 */
-    .result-container {
+    /* 成果輸出區 */
+    .result-box {
       margin-top: 24px;
       padding: 20px;
       background: #FDF9FB;
@@ -236,18 +202,16 @@
       border-radius: 10px;
       display: none;
     }
-    .result-container.show { display: block; }
-    .result-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary-hover);
-      margin-bottom: 10px;
+    .result-box.show { display: block; }
+    .result-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 12px;
       flex-wrap: wrap;
       gap: 10px;
     }
+    .result-title { font-weight: 700; color: var(--primary-hover); font-size: 1.05rem; }
     .btn-export {
       background: #2B7A78;
       color: #fff;
@@ -259,26 +223,25 @@
       cursor: pointer;
     }
     .btn-export:hover { background: #205E5C; }
-    .result-content {
+    .result-area {
       white-space: pre-wrap;
       word-break: break-word;
       font-size: 0.93rem;
       line-height: 1.7;
-      color: #33222B;
       background: #FFFFFF;
       padding: 16px;
       border-radius: 8px;
-      border: 1px solid #F0E3EA;
+      border: 1px solid #EEDEE6;
       max-height: 520px;
       overflow-y: auto;
     }
-
+    
     footer { text-align: center; padding: 15px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #FFFFFF; }
 
-    @media (max-width: 900px) {
-      .app-layout { flex-direction: column; padding: 12px; gap: 14px; }
+    @media (max-width: 768px) {
+      header { padding: 12px 14px; }
+      .app-layout { flex-direction: column; padding: 12px; gap: 12px; }
       .sidebar { width: 100%; }
-      .top-nav-bar { grid-template-columns: 1fr 1fr; }
       .main-panel { padding: 16px; border-radius: 10px; }
       .grid { grid-template-columns: 1fr; gap: 10px; }
     }
@@ -305,59 +268,42 @@
     <!-- 左側選單 -->
     <aside class="sidebar">
       <div class="sidebar-card">
-        <div class="sidebar-title">📁 系統功能模組</div>
-        <button type="button" class="menu-item active" data-tab-btn="plan" onclick="selectTab('plan')">
-          <span>🎨 1. 議題與學習區課程發展</span>
+        <div class="sidebar-title">功能模組選單</div>
+        <button type="button" class="menu-item active" onclick="switchSidebarTab('plan', this)">
+          <span>🎨 1. 課綱與核心素養課程發展</span>
         </button>
-        <button type="button" class="menu-item" data-tab-btn="obs" onclick="selectTab('obs')">
-          <span>📝 2. 行為觀察紀錄改寫</span>
+        <button type="button" class="menu-item" onclick="switchSidebarTab('obs', this)">
+          <span>📝 2. 課綱指標觀察紀錄改寫</span>
         </button>
-        <button type="button" class="menu-item" data-tab-btn="comment" onclick="selectTab('comment')">
-          <span>🌸 3. 學期期末評語</span>
+        <button type="button" class="menu-item" onclick="switchSidebarTab('comment', this)">
+          <span>🌸 3. 六大領域學期期末評語</span>
         </button>
-        <button type="button" class="menu-item" data-tab-btn="iep" onclick="selectTab('iep')">
-          <span>🌱 4. 特教 IEP 草案</span>
+        <button type="button" class="menu-item" onclick="switchSidebarTab('iep', this)">
+          <span>🌱 4. 特教 IEP 課綱扣合草案</span>
         </button>
       </div>
 
-      <div class="sidebar-card" style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.6;">
-        <strong style="color: var(--primary);">💡 目前模組指引：</strong><br>
-        <div id="dynamic-guide" style="margin-top: 4px;">
-          輸入學期主題與班級，系統自動推演出涵蓋第 1 個月開學準備、第 2-5 個月日常議題探究延伸學習區、第 6 個月教學結束回顧展共六個月之完整課程脈絡 Word 檔。
+      <div class="sidebar-card" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55;">
+        <strong style="color: var(--primary);">💡 課綱扣合指引：</strong><br>
+        <div id="dynamic-guide">
+          系統將嚴謹對照《幼兒園教保活動課程大綱》，標註完整六大領域指標編碼（身、認、語、社、情、美）與對應之六大核心素養。
         </div>
       </div>
     </aside>
 
-    <!-- 右側主要工作區 -->
+    <!-- 右側主面板 -->
     <main class="main-panel">
       
-      <!-- 頂部四大模組快捷頁籤（雙重保障，絕不遺失） -->
-      <div class="top-nav-bar">
-        <button type="button" class="top-nav-btn active" data-tab-btn="plan" onclick="selectTab('plan')">
-          🎨 1. 課程發展
-        </button>
-        <button type="button" class="top-nav-btn" data-tab-btn="obs" onclick="selectTab('obs')">
-          📝 2. 觀察紀錄
-        </button>
-        <button type="button" class="top-nav-btn" data-tab-btn="comment" onclick="selectTab('comment')">
-          🌸 3. 期末評語
-        </button>
-        <button type="button" class="top-nav-btn" data-tab-btn="iep" onclick="selectTab('iep')">
-          🌱 4. 特教 IEP
-        </button>
-      </div>
-
-      <!-- API Key 設置 -->
       <div class="key-box">
-        <label>🔑 Google Gemini API Key（安全儲存於您本地電腦瀏覽器）</label>
-        <input type="password" id="apiKeyInput" placeholder="請貼上您的 Gemini API Key（例如：AIzaSy...）">
+        <label>🔑 Google Gemini API Key（系統自動儲存於瀏覽器，免重複輸入）</label>
+        <input type="password" id="apiKeyInput" placeholder="請貼上你的 Gemini API Key（AIzaSy...）">
       </div>
 
-      <!-- 介面 1：議題與學習區結合課程發展 -->
-      <div id="tab-plan" class="tab-content" style="display: block;">
+      <!-- ==================== 【模組 1：議題與學習區結合課程發展】 ==================== -->
+      <div id="tab-plan" class="tab-content active">
         <div class="module-header">
-          <h2>🎨 議題與學習區結合課程發展（一學期六個月脈絡）</h2>
-          <p>第 1 個月開學準備 ➔ 第 2-5 個月生活議題探究轉化為學習區任務 ➔ 第 6 個月教學結束回顧統整</p>
+          <h2>🎨 課綱指標與核心素養結合課程發展（一學期六個月）</h2>
+          <p>緊密對扣教育部幼兒園課程大綱六大領域指標與六大核心素養，輸出完整課程脈絡</p>
         </div>
         <form onsubmit="event.preventDefault(); runPlan();">
           <div class="grid">
@@ -366,12 +312,12 @@
               <input type="text" id="p-school" value="非營利幼兒園" required>
             </div>
             <div class="form-group">
-              <label>任教班級與年段</label>
+              <label>任教班級與年段（系統將精準對應年段指標）</label>
               <select id="p-target">
-                <option value="小班（3-4歲）">小班（3-4歲）</option>
-                <option value="中班（4-5歲）" selected>中班（4-5歲）</option>
-                <option value="大班（5-6歲）">大班（5-6歲）</option>
-                <option value="混齡班">混齡班</option>
+                <option value="小班（3-4歲）">小班（3-4歲，指標代號：小）</option>
+                <option value="中班（4-5歲）" selected>中班（4-5歲，指標代號：中）</option>
+                <option value="大班（5-6歲）">大班（5-6歲，指標代號：大）</option>
+                <option value="混齡班">混齡班（3-6歲跨年段指標對照）</option>
               </select>
             </div>
           </div>
@@ -385,30 +331,45 @@
               <input type="text" id="p-teacher" value="陳老師、林老師" required>
             </div>
           </div>
+
+          <!-- 核心素養重點選核 -->
+          <div class="form-group">
+            <label>本學期核心聚焦素養（六大核心素養）</label>
+            <div class="competency-badges">
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="覺知辨識" checked> 覺知辨識</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="表達溝通" checked> 表達溝通</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="關懷合作" checked> 關懷合作</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="推理賞析" checked> 推理賞析</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="想像創造" checked> 想像創造</label>
+              <label class="badge-check"><input type="checkbox" name="p-comp" value="自主管理" checked> 自主管理</label>
+            </div>
+          </div>
+
           <div class="form-group">
             <label>班級規劃設置之學習區（已全面更新為建構區）</label>
             <input type="text" id="p-corners" value="美勞區、建構區、積木區、語文區、扮演區、鬆散素材區" required>
           </div>
           <div class="form-group">
             <label>生活日常容易引發之討論議題構想 / 在地經驗（選填）</label>
-            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢、菜市場採買等生活事件"></textarea>
+            <textarea id="p-highlight" placeholder="例如：下雨天的水往哪裡流、校園落葉被清潔隊掃走、發現小鳥在窗台築巢等生活事件"></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「議題與學習區結合課程發展」Word (.doc)</button>
+          <button type="submit" class="btn" id="btn-plan">📄 一鍵生成「扣合課綱與核心素養課程計畫」Word (.doc)</button>
         </form>
-        <div id="res-plan-box" class="result-container">
-          <div class="result-title">
-            <span>✨ 課程發展規劃成果</span>
-            <button class="btn-export" onclick="exportWord('res-plan-text', '學期課程發展計畫')">📥 下載 Word 檔 (.doc)</button>
+
+        <div id="res-plan-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 課綱與核心素養課程規劃成果</span>
+            <button class="btn-export" onclick="exportWord('res-plan-text', '學期課綱課程發展計畫')">📥 匯出 Word 檔 (.doc)</button>
           </div>
-          <div id="res-plan-text" class="result-content"></div>
+          <div id="res-plan-text" class="result-area"></div>
         </div>
       </div>
 
-      <!-- 介面 2：行為觀察紀錄改寫 -->
-      <div id="tab-obs" class="tab-content" style="display: none;">
+      <!-- ==================== 【模組 2：行為觀察紀錄客觀改寫】 ==================== -->
+      <div id="tab-obs" class="tab-content">
         <div class="module-header">
-          <h2>📝 幼兒行為觀察紀錄客觀專業改寫</h2>
-          <p>將日常隨手觀察轉化為客觀行為敘事、對應課綱指標、分析詮釋與後續支持鷹架</p>
+          <h2>📝 幼兒行為觀察紀錄課綱與核心素養改寫</h2>
+          <p>客觀行為敘事 ➔ 嚴謹對應課綱六大領域指標 ➔ 深度解析六大核心素養展現 ➔ 教師支持鷹架</p>
         </div>
         <form onsubmit="event.preventDefault(); runObs();">
           <div class="grid">
@@ -422,85 +383,88 @@
             </div>
           </div>
           <div class="form-group">
-            <label>隨手記錄之行為原始事實（人事時地物與對話）</label>
+            <label>隨手記錄之行為原始事實（人事時地物與幼兒原話）</label>
             <textarea id="o-raw" placeholder="例如：在積木區嘗試搭高塔，倒了三次後大叫丟積木，老師走近後跟老師說『積木都不聽話』..." required></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-obs">📝 生成專業行為觀察紀錄分析</button>
+          <button type="submit" class="btn" id="btn-obs">📝 生成對扣課綱領域指標與素養之分析紀錄</button>
         </form>
-        <div id="res-obs-box" class="result-container">
-          <div class="result-title">
-            <span>✨ 觀察紀錄客觀專業改寫成果</span>
-            <button class="btn-export" onclick="exportWord('res-obs-text', '幼兒行為觀察紀錄分析')">📥 下載 Word 檔 (.doc)</button>
+
+        <div id="res-obs-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 專業行為觀察紀錄成果</span>
+            <button class="btn-export" onclick="exportWord('res-obs-text', '課綱指標行為觀察紀錄')">📥 匯出 Word 檔 (.doc)</button>
           </div>
-          <div id="res-obs-text" class="result-content"></div>
+          <div id="res-obs-text" class="result-area"></div>
         </div>
       </div>
 
-      <!-- 介面 3：學期期末評語 -->
-      <div id="tab-comment" class="tab-content" style="display: none;">
+      <!-- ==================== 【模組 3：學期期末評語】 ==================== -->
+      <div id="tab-comment" class="tab-content">
         <div class="module-header">
-          <h2>🌸 幼兒學期期末綜合評語</h2>
-          <p>融合正向教養與各領域發展現況，產出富含教育專業度與溫暖情感的期末評語</p>
+          <h2>🌸 幼兒學期期末評語（扣合課綱六大領域成長）</h2>
+          <p>融合身體動作、認知、語文、社會、情緒、美感六大領域發展現況，產出富教育專業與溫度的評語</p>
         </div>
         <form onsubmit="event.preventDefault(); runComment();">
           <div class="grid">
             <div class="form-group">
-              <label>幼兒代稱 / 班級</label>
+              <label>幼兒代稱 / 年段</label>
               <input type="text" id="c-child" value="幼兒B（大班）" required>
             </div>
             <div class="form-group">
-              <label>評語風格傾向</label>
+              <label>評語呈現架構</label>
               <select id="c-style">
-                <option value="溫暖鼓勵、看見優勢與生活自理" selected>溫暖鼓勵、看見優勢與生活自理</option>
-                <option value="客觀專業、側重學習歷程與認知發展">客觀專業、側重學習歷程與認知發展</option>
-                <option value="正向引導、親師攜手成長">正向引導、親師攜手成長</option>
+                <option value="整合篇章型（溫暖敘事，內嵌六大核心素養亮點）" selected>整合篇章型（溫暖敘事，內嵌六大核心素養亮點）</option>
+                <option value="六大領域指標分項型（身體、認知、語文、社會、情緒、美感個別條列）">六大領域指標分項型（六大領域個別條列成長）</option>
+                <option value="親師攜手型（肯定優勢 ＋ 正向親職引導建議）">親師攜手型（肯定優勢 ＋ 正向親職引導建議）</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label>幼兒本學期顯著成長、特質與學習亮點</label>
-            <textarea id="c-highlight" placeholder="例如：語言表達能力進步很多，願意主動邀請同儕合作建構城堡；生活自理方面能自己整理書包與被褥..." required></textarea>
+            <label>幼兒本學期在各學習區的成長具體表現（選填越具體，分析越精準）</label>
+            <textarea id="c-highlight" placeholder="例如：在建構區能與同儕合作看圖搭建高難度結構；語文區能完整敘述生活經驗；自理能力顯著進步，會主動協助整理環境..." required></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-comment">🌸 生成學期期末評語建議</button>
+          <button type="submit" class="btn" id="btn-comment">🌸 生成扣合領域發展之期末評語建議</button>
         </form>
-        <div id="res-comment-box" class="result-container">
-          <div class="result-title">
-            <span>✨ 學期期末綜合評語</span>
-            <button class="btn-export" onclick="exportWord('res-comment-text', '學期期末評語')">📥 下載 Word 檔 (.doc)</button>
+
+        <div id="res-comment-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ 期末綜合評語建議</span>
+            <button class="btn-export" onclick="exportWord('res-comment-text', '幼兒學期期末評語')">📥 匯出 Word 檔 (.doc)</button>
           </div>
-          <div id="res-comment-text" class="result-content"></div>
+          <div id="res-comment-text" class="result-area"></div>
         </div>
       </div>
 
-      <!-- 介面 4：特教 IEP 草案 -->
-      <div id="tab-iep" class="tab-content" style="display: none;">
+      <!-- ==================== 【模組 4：特教 IEP 草案】 ==================== -->
+      <div id="tab-iep" class="tab-content">
         <div class="module-header">
-          <h2>🌱 特殊教育個別化教育計畫（IEP）輔助草案</h2>
-          <p>針對個別需求擬定具體、可測量之學期教育目標及普通班環境調整建議</p>
+          <h2>🌱 特殊教育個別化教育計畫（IEP，對應課綱分階領域指標）</h2>
+          <p>根據幼兒發展現況，擬定符合 SMART 原則且嚴謹扣合教保課綱指標之學期長短程目標</p>
         </div>
         <form onsubmit="event.preventDefault(); runIep();">
           <div class="grid">
             <div class="form-group">
-              <label>幼兒代稱 / 年段</label>
-              <input type="text" id="i-child" value="幼兒C（小班）" required>
+              <label>幼兒代稱 / 生理年齡</label>
+              <input type="text" id="i-child" value="幼兒C（小班，3歲8個月）" required>
             </div>
             <div class="form-group">
-              <label>特教類別 / 需求特質</label>
-              <input type="text" id="i-type" value="發展遲緩（語言、情緒調節）" required>
+              <label>特教身分 / 需求類別</label>
+              <input type="text" id="i-type" value="發展遲緩（語言理解與表達、社會情緒）" required>
             </div>
           </div>
           <div class="form-group">
-            <label>現況能力描述與主要挑戰</label>
-            <textarea id="i-status" placeholder="例如：單詞表達為主，挫折容忍度較低，轉換活動時易哭鬧離座，具備良好視覺觀察力與配對能力..." required></textarea>
+            <label>目前能力現況描述與主要融合挑戰</label>
+            <textarea id="i-status" placeholder="例如：生活自理能自己拿湯匙進食但需提醒坐好；單詞表達為主、少雙向對話；遇挫折易拍打桌面哭鬧；喜愛在建構區操作磁力片..." required></textarea>
           </div>
-          <button type="submit" class="btn" id="btn-iep">🌱 生成 IEP 學期目標與調整草案</button>
+          <button type="submit" class="btn" id="btn-iep">🌱 生成對扣課綱指標之 IEP 學期計畫草案</button>
         </form>
-        <div id="res-iep-box" class="result-container">
-          <div class="result-title">
-            <span>✨ IEP 個別化教育計畫草案</span>
-            <button class="btn-export" onclick="exportWord('res-iep-text', 'IEP個別化教育計畫草案')">📥 下載 Word 檔 (.doc)</button>
+
+        <div id="res-iep-box" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✨ IEP 個別化教育計畫草案</span>
+            <button class="btn-export" onclick="exportWord('res-iep-text', '特教IEP草案_扣合課綱指標')">📥 匯出 Word 檔 (.doc)</button>
           </div>
-          <div id="res-iep-text" class="result-content"></div>
+          <div id="res-iep-text" class="result-area"></div>
         </div>
       </div>
 
@@ -512,69 +476,46 @@
   </footer>
 
   <script>
-    const guideTexts = {
-      plan: '輸入學期主題與班級，系統自動推演出涵蓋第 1 個月開學準備、第 2-5 個月日常議題探究延伸學習區、第 6 個月教學結束回顧展共六個月之完整課程脈絡 Word 檔。',
-      obs: '輸入日常質性速記或事件描述，由 AI 自動轉換為客觀行為敘事、對應課綱六大領域指標與後續教學支持鷹架。',
-      comment: '輸入幼兒在各學習區的平時表現與個性特質，自動產出具溫度、正向且富含教育專業性的學期末綜合評語。',
-      iep: '針對特教或疑似生填寫目前各領域能力現況與挑戰，自動擬定符合規範之學期可測量目標與班級環境調整建議。'
+    const guides = {
+      plan: '系統自動將一學期六個月脈絡與「六大核心素養」及「課綱領域指標代號（身、認、語、社、情、美）」精準勾稽，產出可直接送審之教案。',
+      obs: '輸入日常質性速記，自動轉為客觀敘事，並嚴格標註符合該年段之課綱領域能力指標代號（如認-中-2-1-1）與核心素養詮釋。',
+      comment: '融貫課綱六大領域發展現況，展現幼兒在學習區探究時的核心素養亮點，產出具專業度與溫暖情感的評語。',
+      iep: '每項長短程目標均明確標註所對扣之幼兒園課綱領域指標代號，並提供普通班融合環境調整具體策略。'
     };
 
-    // 核心選單點選切換函式（100% 直效切換）
-    function selectTab(tabId) {
-      if (!tabId) return;
+    // 介面切換邏輯
+    function switchSidebarTab(tabName, clickedBtn) {
+      document.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
+      clickedBtn.classList.add('active');
 
-      // 1. 隱藏所有分頁，僅顯示目標分頁
-      const tabs = ['plan', 'obs', 'comment', 'iep'];
-      tabs.forEach(function(id) {
-        const panel = document.getElementById('tab-' + id);
-        if (panel) {
-          panel.style.display = (id === tabId) ? 'block' : 'none';
-        }
-      });
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      const targetTab = document.getElementById('tab-' + tabName);
+      if (targetTab) targetTab.classList.add('active');
 
-      // 2. 同步更新側邊欄與頂部所有按鈕的高亮狀態
-      const allButtons = document.querySelectorAll('[data-tab-btn]');
-      allButtons.forEach(function(btn) {
-        if (btn.getAttribute('data-tab-btn') === tabId) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-
-      // 3. 更新提示文字
       const guideBox = document.getElementById('dynamic-guide');
-      if (guideBox && guideTexts[tabId]) {
-        guideBox.innerText = guideTexts[tabId];
-      }
+      if (guideBox && guides[tabName]) guideBox.innerText = guides[tabName];
     }
 
-    // 儲存與讀取 API Key
-    try {
-      const apiKeyInput = document.getElementById('apiKeyInput');
-      if (apiKeyInput) {
-        const savedKey = localStorage.getItem('gemini_api_key');
-        if (savedKey) apiKeyInput.value = savedKey;
-
-        apiKeyInput.addEventListener('input', function(e) {
-          try {
-            localStorage.setItem('gemini_api_key', e.target.value.trim());
-          } catch(err) {}
-        });
-      }
-    } catch(err) {}
+    // 本地記錄 API Key
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    if (apiKeyInput) {
+      apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
+      apiKeyInput.addEventListener('input', (e) => {
+        localStorage.setItem('gemini_api_key', e.target.value.trim());
+      });
+    }
 
     function getApiKey() {
-      const key = document.getElementById('apiKeyInput').value.trim();
+      const key = apiKeyInput.value.trim();
       if (!key) {
         alert('請先在上方輸入您的 Google Gemini API Key！');
-        document.getElementById('apiKeyInput').focus();
+        apiKeyInput.focus();
         return null;
       }
       return key;
     }
 
-    // 呼叫 Gemini 介面
+    // API 呼叫共用函式
     async function callGemini(prompt, btnId, boxId, textId) {
       const apiKey = getApiKey();
       if (!apiKey) return;
@@ -582,7 +523,7 @@
       const btn = document.getElementById(btnId);
       const originalText = btn.innerText;
       btn.disabled = true;
-      btn.innerText = '⏳ AI 正在深度規劃生成中，請稍候...';
+      btn.innerText = '⏳ 系統正比對教保課綱指標與核心素養生成中...';
 
       const box = document.getElementById(boxId);
       const textElem = document.getElementById(textId);
@@ -594,30 +535,30 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.7 }
+            generationConfig: { temperature: 0.6 }
           })
         });
 
         const data = await res.json();
         if (data.error) throw new Error(data.error.message || 'API 呼叫失敗');
 
-        const content = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
+        const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (content) {
           textElem.innerText = content;
           box.classList.add('show');
           box.scrollIntoView({ behavior: 'smooth' });
         } else {
-          throw new Error('未取得生成內容，請確認 API Key 或稍後重試。');
+          throw new Error('未取得生成結果，請檢查 API Key 或網路連線。');
         }
       } catch (err) {
-        alert('生成失敗：' + err.message);
+        alert('執行錯誤：' + err.message);
       } finally {
         btn.disabled = false;
         btn.innerText = originalText;
       }
     }
 
-    // 匯出 Word
+    // 匯出 Word 檔 (.doc)
     function exportWord(textElemId, filenamePrefix) {
       const content = document.getElementById(textElemId).innerText;
       if (!content) {
@@ -630,10 +571,11 @@
         <head><meta charset='utf-8'><title>教保專業文件</title>
         <style>
           body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; }
+          h1, h2, h3 { color: #8E3B68; }
         </style>
         </head>
         <body>
-          <pre style="white-space: pre-wrap; font-family: 'Microsoft JhengHei', sans-serif;">${content}</pre>
+          <pre style="white-space: pre-wrap; font-family: 'Microsoft JhengHei', sans-serif; font-size: 11pt;">${content}</pre>
         </body>
         </html>
       `;
@@ -649,6 +591,7 @@
       URL.revokeObjectURL(url);
     }
 
+    // 模組 1：課綱與素養課程
     function runPlan() {
       const school = document.getElementById('p-school').value;
       const target = document.getElementById('p-target').value;
@@ -657,55 +600,106 @@
       const corners = document.getElementById('p-corners').value;
       const highlight = document.getElementById('p-highlight').value;
 
-      const prompt = `你是一位熟悉台灣幼兒園教保活動課程大綱（課綱）的專家督導。請為【${school}】的【${target}】設計一份結合「生活議題」與「學習區任務」的六個月完整學期課程脈絡。
-任教老師：${teacher}
-學期主題：${theme}
-規劃之學習區：${corners}
-在地經驗/引發議題：${highlight || '由生活周遭日常發現引導'}
+      const checkedComp = Array.from(document.querySelectorAll('input[name="p-comp"]:checked'))
+                               .map(cb => cb.value).join('、');
 
-請輸出具體完整內容（理念、六個月推進脈絡、各區任務投放、指標對應）。`;
+      const prompt = `
+你是一位精通台灣《幼兒園教保活動課程大綱》（課綱）與非營利幼兒園教學輔導的專家督導。請為【${school}】的【${target}】設計一份嚴格扣合「課綱領域能力指標」與「六大核心素養」的一學期六個月課程發展脈絡計畫。
+
+【課程背景】
+- 主題名稱：${theme}
+- 任教教保員：${teacher}
+- 班級學習區：${corners}
+- 本學期重點核心素養：${checkedComp || '六大核心素養全員融入'}
+- 生活生活經驗/在地議題：${highlight || '由生活周遭日常發現引導探究'}
+
+【撰寫結構要求（必須嚴格條列課綱代碼與素養）】：
+一、 課程設計理念（說明如何由幼兒生活議題出發，結合探究式學習區並落實核心素養）
+二、 六大核心素養對應落實表：
+     請針對所選核心素養（覺知辨識、表達溝通、關懷合作、推理賞析、想像創造、自主管理），逐一說明本學期幼兒具體的行為表現與落實情境。
+三、 扣合之課綱領域能力指標矩陣（必須包含：領域名稱、指標編碼如「認-中-1-1-1」、指標全文、年段對應）：
+     - 身體動作與健康領域
+     - 認知領域
+     - 語文領域
+     - 社會領域
+     - 情緒領域
+     - 美感領域
+四、 學期六個月推進脈絡與學習區任務對照表：
+     - 第 1 個月：開學常規建立、環境探索與學習區導入（註明扣合指標）
+     - 第 2 個月：生活議題萌發、問題提出與初步表徵（註明扣合指標）
+     - 第 3 個月：深入探索與材料實驗、跨區互動（註明扣合指標）
+     - 第 4 個月：遭遇挑戰、同儕合作解決與建構深化（註明扣合指標）
+     - 第 5 個月：探究成果雛形形成、社群分享與修正（註明扣合指標）
+     - 第 6 個月：主題統整回顧展、學習歷程反思與發表（註明扣合指標）
+五、 各學習區（美勞區、建構區、積木區、語文區等）之材料投放、挑戰任務與教師鷹架提問策略
+`;
       callGemini(prompt, 'btn-plan', 'res-plan-box', 'res-plan-text');
     }
 
+    // 模組 2：行為觀察紀錄
     function runObs() {
       const child = document.getElementById('o-child').value;
       const corner = document.getElementById('o-corner').value;
       const raw = document.getElementById('o-raw').value;
 
-      const prompt = `請將以下幼兒行為隨手筆記改寫為客觀專業行為觀察紀錄：
-幼兒：${child}
-情境：${corner}
-原始記錄：${raw}
+      const prompt = `
+你是一位具備幼兒觀察評量專業的教保輔導員。請將以下隨手觀察筆記，改寫為符合台灣教保課程評量標準的「專業客觀行為觀察紀錄」：
 
-請輸出：一、客觀行為描述；二、行為背後詮釋與發展分析；三、對應之課綱領域指標代號與說明；四、後續個別化鷹架支持與教學引導策略。`;
+【基本資料】幼兒：${child} / 觀察情境：${corner}
+【原始速記】：${raw}
+
+【請輸出以下專業結構】：
+一、 客觀行為描述（去主觀評價、客觀完整記錄人事時地物、材料操作與語言互動對話）
+二、 扣合之六大核心素養詮釋：
+     明確分析幼兒在此行為中展現了哪一項核心素養（例如：推理賞析、自主管理、關懷合作等），並說明其質性意義。
+三、 扣合之課綱領域能力指標（格式規範）：
+     - 領域與指標編碼（例如：認-中-2-2-1）
+     - 指標完整文字內容
+     - 具體對應行為佐證說明
+四、 幼兒發展現況深入分析（認知運思、情緒調節、精細/粗大動作、同儕互動）
+五、 教師後續個別化鷹架支持策略（物理環境材料調整、引導性提問引導策略、學習區任務延伸）
+`;
       callGemini(prompt, 'btn-obs', 'res-obs-box', 'res-obs-text');
     }
 
+    // 模組 3：學期評語
     function runComment() {
       const child = document.getElementById('c-child').value;
       const style = document.getElementById('c-style').value;
       const highlight = document.getElementById('c-highlight').value;
 
-      const prompt = `請撰寫幼兒學期期末給家長的綜合評語：
-對象：${child}
-風格：${style}
-亮點與成長：${highlight}
+      const prompt = `
+請為幼兒園教保員撰寫期末給家長的綜合評語，必須融入台灣幼兒園課綱六大領域發展現況：
+【對象】：${child}
+【呈現架構】：${style}
+【學期表現重點與成長亮點】：${highlight}
 
-請提供 2 至 3 種不同篇幅與著重點的溫暖專業評語版本供老師選用。`;
+【撰寫規範】：
+1. 語氣溫暖有溫度，展現對孩子的細微看見，肯定其在「六大核心素養」（如自主管理、表達溝通、關懷合作等）上的具體進步。
+2. 清楚帶出孩子在各領域的發展亮點（身心動作健康、認知探究、語文表達、社會人際、情緒覺察調節、美感創作）。
+3. 提供 2 到 3 種不同篇幅（精煉版、完整版）的建議，兼顧教育專業性與親師合作的溫暖期許。
+`;
       callGemini(prompt, 'btn-comment', 'res-comment-box', 'res-comment-text');
     }
 
+    // 模組 4：特教 IEP
     function runIep() {
       const child = document.getElementById('i-child').value;
       const type = document.getElementById('i-type').value;
       const status = document.getElementById('i-status').value;
 
-      const prompt = `請針對以下幼兒現況擬定學期個別化教育計畫（IEP）輔助草案：
-幼兒：${child}
-需求類別：${type}
-現況挑戰：${status}
+      const prompt = `
+你是一位幼兒特殊教育專業輔導教師。請針對以下幼兒現況，擬定符合台灣幼兒園教保課綱規範之學期個別化教育計畫（IEP）輔助草案：
+【幼兒對象】：${child}
+【需求特質/特教類別】：${type}
+【能力現況與挑戰】：${status}
 
-請輸出：一、學期長程目標；二、短程目標（符合 SMART 原則）；三、班級環境與教學調整策略；四、家庭延伸支持策略。`;
+【輸出結構要求】：
+一、 學期長程目標（依領域分項：如認知、語言、社會情緒、生活自理與動作，並標註扣合之核心素養）
+二、 短程目標（符合 SMART 原則，具備具體起點行為、評量條件與通過標準），且「每一條短程目標下方，必須嚴謹標註所對應之幼兒園課綱領域能力指標編碼與完整名稱（例如：社-小-1-2-1 覺察自己的情緒）」。
+三、 普通班環境與教學調整具體策略（作息轉換提示、學習區材料分級調整、視覺提示策略、同儕小天使配對支持）。
+四、 親師合作與家庭延伸支持策略。
+`;
       callGemini(prompt, 'btn-iep', 'res-iep-box', 'res-iep-text');
     }
   </script>
